@@ -1,0 +1,118 @@
+@mixin big-desktop {
+  @media (min-width: $xl) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $md) {
+    @content;
+  }
+}
+
+@mixin table {
+  @media (min-width: $sm) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (min-width: $xx) {
+    @content;
+  }
+}
+
+/** Max */
+@mixin bigDesktopMax {
+  @media (max-width: $xl) {
+    @content;
+  }
+}
+
+@mixin desktopMax {
+  @media (max-width: $md) {
+    @content;
+  }
+}
+
+@mixin tableMax {
+  @media (max-width: $sm) {
+    @content;
+  }
+}
+
+@mixin mobileMax {
+  @media (max-width: $xx) {
+    @content;
+  }
+}
+
+/** PADDING */
+@mixin padding($top, $right, $bottom, $left) {
+  padding: $top $right $bottom $left;
+}
+
+@mixin paddingShort($topBottom, $rightLeft) {
+  padding: $topBottom $rightLeft;
+}
+
+@mixin paddingWithoutLeft($top, $right, $bottom) {
+  padding: $top $right $bottom;
+}
+
+/** MARGIN */
+@mixin margin($top, $right, $bottom, $left) {
+  margin: $top $right $bottom $left;
+}
+
+@mixin marginShort($topBottom, $rightLeft) {
+  margin: $topBottom $rightLeft;
+}
+
+@mixin marginWithoutLeft($top, $right, $bottom) {
+  margin: $top $right $bottom;
+}
+
+@mixin marginAuto($number) {
+  margin: $number auto;
+}
+
+/** BOX MODEL */
+@mixin widthHeight($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+/** FLEX */
+@mixin flex {
+  display: flex;
+  display: -webkit-flex;
+}
+
+/** CONTAINER SCALE */
+@mixin containerScale() {
+  @include table {
+    width: 750px;
+  }
+
+  @include desktop {
+    width: 970px;
+  }
+
+  @include big-desktop {
+    width: 1170px;
+  }
+}
+
+/** BORDER */
+@mixin borderSolid($width, $color) {
+  border: $width solid $color;
+}
+
+/** FONT */
+@mixin font($fontSize, $fontWeight, $lineHeight, $letterSpacing) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  letter-spacing: $letterSpacing
+}

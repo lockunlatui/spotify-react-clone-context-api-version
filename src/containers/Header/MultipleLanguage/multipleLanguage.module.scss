@@ -1,0 +1,50 @@
+@import 'global';
+
+.languageMultiWrapper {
+  @include flex;
+  background-color: $blue;
+  justify-content: center;
+
+  & > .languageBar {
+    @include flex;
+    justify-content: space-between;
+    @include widthHeight(100%, 100%);
+    align-items: center;
+    padding: 15px;
+
+    @include table {
+      @include widthHeight(750px, 100%);
+    }
+
+    @include desktop {
+      @include widthHeight(970px, 100%);
+    }
+
+    @include big-desktop {
+      @include widthHeight(1170px, 100%);
+    }
+
+    & > .wrapMultiLanguageLink {
+      cursor: pointer;
+      & > .multiLanguageLink {
+        color: $white;
+      }
+    }
+
+    & > .mhClose {
+      cursor: pointer;
+      background-color: transparent;
+      border: 0;
+      color: $white;
+      font-weight: 700;
+      font-size: 18px;
+
+      & > .mhScreenReadOnly {
+        @include widthHeight(1px, 1px);
+        position: absolute;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+      }
+    }
+  }
+}

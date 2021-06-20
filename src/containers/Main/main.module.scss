@@ -1,0 +1,145 @@
+@import 'global';
+
+.container {
+  & > .spotifyPremiumSection {
+    background-color: $containerBgColor;
+
+    & .childSection {
+      @include flex;
+      margin: 0 auto;
+      @include containerScale();
+      @include bigDesktopMax {
+        @include flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      & > .article {
+        @include flex;
+        padding: 0 15px;
+        padding-top: 72px;
+        padding-bottom: 72px;
+        flex-direction: column;
+
+        & > .wrapSpotifyPremium {
+          margin: 16px 0px 32px;
+
+          & > .spotifyPremium {
+            color: $blueDark;
+          }
+        }
+
+        & > .wrapStrongSP {
+          width: auto;
+          & > .strongSP {
+            color: $blueDark;
+          }
+        }
+
+        & > .wrapDesc {
+          width: auto;
+          margin: 30px 0px;
+          & > .descSP {
+            color: $blueDark;
+          }
+        }
+      }
+
+      & > .imgSP {
+        @include flex;
+        align-items: center;
+        padding-bottom: 48px;
+        width: 100%;
+        max-width: 400px;
+
+        @include mobileMax {
+          max-width: 290px;
+        }
+
+        & > img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  & > .spotifyFreeSection {
+    background-image: url('../../assets/images/spotifyFreeMobile.svg');
+    background-position: 65% 55%;
+    background-size: auto 170%;
+    background-repeat: no-repeat;
+    background-color: $blueLightDark;
+
+    @include table {
+      background-image: url('../../assets/images/spotifyFreeTable.svg');
+      background-size: auto 115%;
+      background-position: center center;
+    }
+
+    @include desktop {
+      background-image: url('../../assets/images/spotifyFree.svg');
+      background-size: auto 100%;
+      background-position: right center;
+    }
+
+    & .childSection {
+      @include flex;
+      margin: 0 auto;
+      @include containerScale();
+
+      @include bigDesktopMax {
+        @include flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      & > .article {
+        color: $green;
+        padding: 64px 0px 0px 0px;
+        min-height: 600px;
+
+        @include desktopMax {
+          min-height: 480px;
+        }
+
+        & > .wrapSpotifyFree {
+          padding: 32px 0px;
+
+          & > .spotifyFree {
+            font-weight: 400;
+          }
+        }
+
+        & > .wrapStrongSF {
+          min-width: 360px;
+
+          @include tableMax {
+            max-width: 340px;
+          }
+
+          @include mobileMax {
+            min-width: 320px;
+          }
+        }
+
+        & > .wrapDesc {
+          margin: 48px 0px 0px;
+
+          @include tableMax {
+            max-width: 340px;
+          }
+
+          @include mobileMax {
+            min-width: 320px;
+          }
+        }
+
+        & > .wrapBtnDownloadFree {
+          margin: 48px 0px 0px 0px;
+        }
+      }
+    }
+  }
+}

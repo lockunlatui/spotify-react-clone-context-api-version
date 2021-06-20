@@ -1,0 +1,108 @@
+@import 'global';
+
+.header {
+  & > .navContainer {
+    @include font(16px, $boldFont, 1.5, 0);
+    background-color: $black;
+    min-height: 54px;
+    color: $white;
+
+    & > .wrapper {
+      @include flex;
+      @include paddingShort(0, 15px);
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+      margin: 0 auto;
+      max-width: 750px;
+
+      @include desktop {
+        max-width: 970px;
+      }
+
+      @include big-desktop {
+        max-width: 1170px;
+      }
+
+      @include desktopMax {
+        height: 54px;
+      }
+
+      & > .brandWrapper {
+       @include flex;
+        & > .logoLink {
+          @include widthHeight(132px, 40px);
+
+          @include desktopMax {
+            @include widthHeight(89px, 27px);
+          }
+
+          & > span {
+            color: $white;
+          }
+        }
+      }
+
+      & > .mobileMenu {
+        @include flex;
+        position: relative;
+        z-index: 1001;
+        @include desktop {
+          display: none;
+        }
+
+        & > .menuButtonExpand {
+          @include padding(0, 0, 1px, 9px);
+          border: none;
+          background: transparent;
+          z-index: 1;
+          color: $white;
+          position: relative;
+          cursor: pointer;
+
+          & > span {
+            background-color: currentColor;
+            border-radius: 1px;
+            @include widthHeight(22px, 3px);
+            display: block;
+            margin-top: 4px;
+            transform-origin: 21px;
+            transition: transform 0.2s, -webkit-transform 0.2s;
+          }
+        }
+      }
+
+      & > .openMobile {
+        & > .menuButtonExpand {
+          & > span:nth-child(1) {
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+          }
+          & > span:nth-child(2) {
+            background-color: transparent;
+          }
+          & > span:nth-child(3) {
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+          }
+        }
+      }
+
+      & > .mobileNavigation {
+        @include desktop {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+/** Overlay */
+.overlay {
+  @include widthHeight(100vw, 100vh);
+  background: $overlayColor;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}

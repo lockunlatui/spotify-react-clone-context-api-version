@@ -1,0 +1,240 @@
+@import "global";
+
+.container {
+  @include widthHeight(100%, 100%);
+  @include flex;
+  position: relative;
+
+  .lookForMusicBg {
+    @include widthHeight(100%, 100%);
+    position: absolute;
+    background-color: $blueLight;
+    background-image: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from($pink),
+      to($blueLightWeight)
+    );
+    background-image: linear-gradient(90deg, $pink, $blueLightWeight);
+  }
+
+  .lookForMusicBgGradient {
+    @include widthHeight(100%, 100%);
+    position: absolute;
+    background-color: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(transparent),
+      to($black)
+    );
+    background-image: linear-gradient(transparent, $black);
+  }
+
+  .premiumPromoContainer {
+    @include flex;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    align-items: center;
+    margin: 0 auto;
+    @include containerScale();
+    width: 100%;
+    
+    &:before {
+      content: " ";
+      display: table;
+    }
+    @include table {
+      text-align: center;
+    }
+    .premiumPromo {
+      @include widthHeight(100%, 100%);
+      @include flex;
+      position: relative;
+      flex-wrap: wrap;
+      align-items: center;
+
+      @include tableMax {
+        width: 100%;
+        text-align: center;
+        @include flex;
+        justify-content:center;
+        align-items: center;
+      }
+
+      &:before {
+        content: " ";
+        display: table;
+      }
+
+      .heroIntro {
+        width: 100%;
+        @include desktop {
+          width: 30%;
+        }
+
+        .lookForMusicText,
+        .startListeningText {
+          color: $white;
+        }
+
+        .openWebPlayer {
+          @include marginShort(32px, 0);
+        }
+      }
+
+      .boxMusicContainer {
+        width: 100%;
+        @include desktop {
+          width: 70%;
+          position: relative;
+        }
+
+        .boxMusic {
+          &::before {
+            content: " ";
+            display: table;
+          }
+          &:after {
+            content: " ";
+            display: table;
+          }
+          .albumResult {
+            ul {
+              @include flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              align-items: center;
+              flex-direction: row;
+              li {
+                width: 30%;
+                padding: 8px;
+
+                @include tableMax {
+                  width: 45%;
+                }
+
+                &:hover {
+                  figure {
+                    .contentOverlay {
+                      opacity: 1;
+                    }
+                    .contentDetail {
+                      opacity: 1;
+                    }
+                  }
+                }
+                position: relative;
+                list-style-type: none;
+
+                figure {
+                  @include widthHeight(100%, 100%);
+                  position: relative;
+                  box-shadow: 1px 1px 16px -2px #0000004d;
+                  cursor: pointer;
+                  overflow: hidden;
+                  .box {
+                    position: relative;
+                    @include widthHeight(100%, 100%);
+
+                    &:before {
+                      content: "";
+                      display: block;
+                      padding-top: 100%;
+                    }
+
+                    .content {
+                      @include widthHeight(100%, 100%);
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      bottom: 0;
+                      right: 0;
+                      img {
+                        object-fit: cover;
+                        width: 100%;
+                      }
+                    }
+                  }
+
+                  .contentOverlay {
+                    @include widthHeight(100%, 100%);
+                    position: absolute;
+                    background-color: #000000cc;
+                    transition: all 0.2s ease-in-out;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    opacity: 0;
+                  }
+
+                  .contentDetail {
+                    @include widthHeight(100%, 30%);
+                    -webkit-transform: translate(-50%, -85%);
+                    -ms-transform: translate(-50%, -85%);
+                    transform: translate(-50%, -85%);
+                    -webkit-transition: all 0.2s ease-in-out 0s;
+                    transition: all 0.2s ease-in-out 0s;
+                    position: absolute;
+                    text-align: center;
+                    padding-left: 1em;
+                    padding-right: 1em;
+                    top: 50%;
+                    left: 50%;
+                    opacity: 0;
+
+                    &:hover {
+                      opacity: 1;
+                    }
+
+                    .albumPlayIcon {
+                      @include flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-self: center;
+
+                      svg {
+                        @include widthHeight(25px, 30px);
+                        position: relative;
+                        margin-bottom: 20px;
+                      }
+
+                      .title {
+                        color: $white;
+                        font-weight: $regularFont;
+                        margin-bottom: 10px;
+                      }
+
+                      .subtitle {
+                        color: $gray;
+                        text-transform: capitalize;
+                        font-weight: $regularFont;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .btnScroll {
+        @include flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 30px;
+        .iconScrollDown {
+          @include widthHeight(44px, 44px);
+          animation: move 1.5s ease-out infinite;
+          svg {
+            @include widthHeight(100%, 100%);
+          }
+        }
+      }
+    }
+  }
+}
