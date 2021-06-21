@@ -3,9 +3,9 @@ import {
   Switch,
   Route,
   Redirect,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import { Main, IntroductionMain } from '@containers/index';
+import { Main, IntroductionMain, NotFound } from "@containers/index";
 
 const renderRouter = (
   rest: any,
@@ -35,24 +35,29 @@ const renderRouter = (
 };
 
 const PrivateComponent = ({ component: Component, auth, ...rest }: any) => {
-  return renderRouter(rest, auth, Component, '/');
+  return renderRouter(rest, auth, Component, "/");
 };
 
 const PublicComponent = ({ component: Component, auth, ...rest }: any) => {
-  return renderRouter(rest, !auth, Component, '/home');
+  return renderRouter(rest, !auth, Component, "/home");
 };
 
-const routes = (token : string) => {
+const routes = (token: string) => {
   return (
     <Router>
       <Switch>
         <PublicComponent
           auth={Boolean(token)}
-          path='/'
+          path="/"
           exact
           component={Main}
         />
-        <PrivateComponent auth={Boolean(token)} path='/home' component={IntroductionMain} />
+        <PrivateComponent
+          auth={Boolean(token)}
+          path="/home"
+          component={IntroductionMain}
+        />
+        <Route component={NotFound} />
       </Switch>
     </Router>
   );
