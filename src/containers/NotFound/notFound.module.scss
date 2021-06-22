@@ -1,0 +1,23 @@
+@import 'global';
+
+.container {
+  display: flex;
+  background-color: $pinkLight;
+  padding-top: 100px;
+  padding-bottom: 160px;
+
+  .notFoundContainer {
+    @include containerScale();
+    margin: 0 auto;
+    display: flex;
+
+    .notFoundImage {
+
+      .recordArm {
+        position: absolute;
+        top: 20px;
+        right: 15px;
+      }
+    }
+  }
+}
