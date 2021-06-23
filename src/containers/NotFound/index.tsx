@@ -5,7 +5,7 @@ const NotFound = () => {
     <div className={Styles.container}>
       <div className={Styles.notFoundContainer}>
         <div className={Styles.notFoundContent}>
-          <Typography variant="h5">Trang này không còn tồn tại.</Typography>
+          <Typography className={Styles.pageNotFound} variant="h5">Trang này không còn tồn tại.</Typography>
           <Typography variant="body2">
             We couldn’t find the page you were looking for. Maybe our FAQ or
             Community can help?

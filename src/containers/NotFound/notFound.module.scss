@@ -11,6 +11,12 @@
     margin: 0 auto;
     display: flex;
 
+    .notFoundContent {
+      .pageNotFound {
+        font-weight: $boldFont;
+      }
+    }
+
     .notFoundImage {
 
       .recordArm {
