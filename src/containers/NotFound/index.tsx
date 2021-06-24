@@ -1,3 +1,5 @@
+import { Images } from '@utils/index';
+
 import { Typography, Button } from "@components/index";
 import Styles from "./notFound.module.scss";
 const NotFound = () => {
@@ -5,23 +7,23 @@ const NotFound = () => {
     <div className={Styles.container}>
       <div className={Styles.notFoundContainer}>
         <div className={Styles.notFoundContent}>
-          <Typography variant="h5">Trang này không còn tồn tại.</Typography>
-          <Typography variant="body2">
+          <Typography className={Styles.pageNotFound} variant="h5">Trang này không còn tồn tại.</Typography>
+          <Typography className={Styles.desc} variant="subtitle1">
             We couldn’t find the page you were looking for. Maybe our FAQ or
             Community can help?
           </Typography>
-          <Button>Quay Lại</Button>
+          <Button className={Styles.backBtn}>Quay Lại</Button>
         </div>
         <div className={Styles.notFoundImage}>
           <img
             alt="Record"
-            className="img-responsive record"
-            src="https://www.scdn.co/i/404/record.svg"
+            className={Styles.record}
+            src={Images['RECORD']}
           />
           <img
             className={Styles.recordArm}
             alt="RecordArm"
-            src="https://www.scdn.co/i/404/record-arm.svg"
+            src={Images['RECORDARM']}
           />
         </div>
       </div>

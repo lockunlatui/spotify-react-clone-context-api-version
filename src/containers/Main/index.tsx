@@ -27,7 +27,7 @@ const Main = () => {
               </Typography>
             </div>
             <div className={Styles.wrapBtnReceiveFree}>
-              <Button backgroundColor='#2d46b9' color='#FFFFFF'>
+              <Button variant="contained" backgroundColor='#2d46b9' color='#FFFFFF'>
                 <FormattedMessage id='section.premium.button.name' />
               </Button>
             </div>
@@ -56,7 +56,7 @@ const Main = () => {
               </Typography>
             </div>
             <div className={Styles.wrapBtnDownloadFree}>
-              <Button backgroundColor='#1ed760' color='#2941ab'>
+              <Button variant="contained" backgroundColor='#1ed760' color='#2941ab'>
                 <FormattedMessage id='section.free.button.name' />
               </Button>
             </div>
