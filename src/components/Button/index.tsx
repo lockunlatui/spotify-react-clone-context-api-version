@@ -6,6 +6,7 @@ type IButtonProps = {
   color?: any;
   backgroundColor?: any;
   className?: string;
+  variant?: string;
 };
 
 const Button = ({
@@ -13,14 +14,23 @@ const Button = ({
   color,
   backgroundColor,
   className,
+  variant,
 }: IButtonProps) => {
+  const variantButton = () => {
+    switch (variant) {
+      case "contained":
+        return Styles.buttonContained;
+      default:
+        return Styles.button;
+    }
+  };
   return (
     <button
       style={{
         color: color,
         backgroundColor: backgroundColor,
       }}
-      className={c(Styles.button, className)}
+      className={c(variantButton(), className)}
     >
       {children}
     </button>

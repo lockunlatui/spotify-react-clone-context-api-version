@@ -10,19 +10,56 @@
     @include containerScale();
     margin: 0 auto;
     display: flex;
+    justify-content: center;
+
+    @include desktopMax {
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: center;
+    }
 
     .notFoundContent {
+      @include flex;
+      justify-content: center;
+      flex-direction: column;
+      width: 25%;
       .pageNotFound {
+        margin-bottom: 20px;
         font-weight: $boldFont;
+      }
+
+      .desc {
+        margin-bottom: 40px;
+        color: $blackDark;
+      }
+
+      .backBtn {
+        text-align: left;
       }
     }
 
     .notFoundImage {
+      position: relative;
+      width: 50%;
+      margin-left: 8.33333333%;
+      margin-bottom: 10%;
+      @include desktopMax {
+        width: 25;
+      }
 
+      .record {
+        width: 100%;
+        -webkit-animation: rotateRecord 5s;
+        animation: rotateRecord 5s;
+        -webkit-transform: rotate(240deg);
+        -ms-transform: rotate(240deg);
+        transform: rotate(240deg);
+      }
       .recordArm {
         position: absolute;
         top: 20px;
         right: 15px;
+        width: 45%;
       }
     }
   }
