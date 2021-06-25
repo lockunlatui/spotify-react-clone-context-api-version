@@ -35,6 +35,7 @@ const LookingForMusic = () => {
               className={Styles.openWebPlayer}
               color={Colors.white}
               backgroundColor={Colors.green}
+              variant="contained"
             >
               Open Web Player
             </Button>
@@ -74,13 +75,6 @@ const LookingForMusic = () => {
                             </figcaption>
                           </div>
                         </figure>
-                        {/* <figcaption className={Styles.scroll}>
-                            <Typography variant="h5">{box.title}</Typography>
-                            <Typography variant="h5">{box.subtitle}</Typography>
-                            <div className={Styles.playNow}>
-                              <a href="/open">Play Now</a>
-                            </div>
-                          </figcaption> */}
                       </li>
                     );
                   })}
