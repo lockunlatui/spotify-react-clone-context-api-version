@@ -1,10 +1,13 @@
 import { useEffect } from "react";
-import { Typography, Button } from "@components/index";
+import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlayCircle,
   faArrowCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
+
+/** Components */
+import { Typography, Button } from "@components/index";
 
 /** Mocks */
 import { boxMusic } from "@mocks/IntroductionMain";
@@ -26,10 +29,10 @@ const LookingForMusic = () => {
         <div className={Styles.premiumPromo}>
           <div className={Styles.heroIntro}>
             <Typography variant="h3" className={Styles.lookForMusicText}>
-              Looking for music?
+              <FormattedMessage id="introductionMain.lookForMusic" />
             </Typography>
             <Typography variant="h5" className={Styles.startListeningText}>
-              Start listening to the best new releases.
+              <FormattedMessage id="introductionMain.startListening" />
             </Typography>
             <Button
               className={Styles.openWebPlayer}
@@ -37,7 +40,7 @@ const LookingForMusic = () => {
               backgroundColor={Colors.green}
               variant="contained"
             >
-              Open Web Player
+              <FormattedMessage id="introductionMain.openWebPlayer" />
             </Button>
           </div>
           <div className={Styles.boxMusicContainer}>
