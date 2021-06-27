@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from "@services/interceptor";
 
 class UserService {
   static getUser = () => {
-    return axios.get(`http://localhost:3000/api/v1/me`);
+    return axios.get(`/me`);
   };
 }
 
