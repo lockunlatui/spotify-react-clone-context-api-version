@@ -1,3 +1,3 @@
 import { Colors } from "./Colors";
-
-export { Colors };
+import { URLS } from "./URLS";
+export { Colors, URLS };
