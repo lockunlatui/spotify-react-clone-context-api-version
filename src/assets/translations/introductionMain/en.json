@@ -1,5 +1,16 @@
 {
   "introductionMain.lookForMusic": "Looking for music?",
   "introductionMain.startListening": " Start listening to the best new releases.",
-  "introductionMain.openWebPlayer": " Open Web Player"
+  "introductionMain.openWebPlayer": " Open Web Player",
+
+  "introductionMain.makeTheMost.title": "Make the most of Spotify",
+  "introductionMain.makeTheMost.manageYourAccount": "Manage your account",
+  "introductionMain.makeTheMost.manageYourAccount.description": "Edit your profile, change your password, and update your payment information.",
+  "introductionMain.makeTheMost.manageYourAccount.nameButton": "Manage Account",
+  "introductionMain.makeTheMost.getOurFreeApp": "Get our free app",
+  "introductionMain.makeTheMost.getOurFreeApp.description": "Seamlessly listen to music you love. Download the Spotify app for your computer.",
+  "introductionMain.makeTheMost.getOurFreeApp.nameButton": "Download Desktop App",
+  "introductionMain.makeTheMost.listenOnTheWeb": "Listen on the web",
+  "introductionMain.makeTheMost.listenOnTheWeb.description": "To play and share music without the app, all within your browser, go to",
+  "introductionMain.makeTheMost.listenOnTheWeb.nameButton": "Open Web Player"
 }

@@ -1,0 +1,82 @@
+/*
+ * Legal Disclaimer
+ *
+ * These web fonts are licensed exclusively for use on the following:
+ * spotify.com
+ *
+ * It is strictly forbidden to download or use these fonts on any other website domain or media.
+ *
+ * While the @font-face statements below may be modified by the client, this
+ * disclaimer may not be removed.
+ *
+ * Lineto.com, 2018
+ */
+
+/*
+ *
+ * INSTRUCTIONS
+ *
+ * Copy the Legal Disclaimer and the @font-faces statements to your regular CSS file.
+ * The fonts folder(s) should be placed relative to the regular CSS file.
+ *
+ */
+
+@font-face {
+  font-family: "Circular Black Italic";
+  src: url("../assets/fonts/CircularVitBlackItalic.woff") format("woff"),
+    url("../assets/fonts/CircularVitBlackItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Circular Black";
+  src: url("../assets/fonts/CircularVitBlack.woff") format("woff"),
+    url("../assets/fonts/CircularVitBlack.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Circular Bold Italic";
+  src: url("../assets/fonts/CircularVitBoldItalic.woff") format("woff"),
+    url("../assets/fonts/CircularVitBoldItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Circular Bold";
+  src: url("../assets/fonts/CircularVitBold.woff") format("woff"),
+    url("../assets/fonts/CircularVitBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Circular Italic";
+  src: url("../assets/fonts/CircularVitItalic.woff") format("woff"),
+    url("../assets/fonts/CircularVitItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Circular";
+  src: url("../assets/fonts/CircularVit.woff") format("woff"),
+    url("../assets/fonts/CircularVit.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Circular Light Italic";
+  src: url("../assets/fonts/CircularVitLightItalic.woff") format("woff"),
+    url("../assets/fonts/CircularVitLightItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Circular Light";
+  src: url("../assets/fonts/CircularVitLight.woff") format("woff"),
+    url("../assets/fonts/CircularVitLight.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Circular Medium Italic";
+  src: url("../assets/fonts/CircularVitMediumItalic.woff") format("woff"),
+    url("../assets/fonts/CircularVitMediumItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Circular Medium";
+  src: url("../assets/fonts/CircularVitMedium.woff") format("woff"),
+    url("../assets/fonts/CircularVitMedium.woff2") format("woff2");
+}

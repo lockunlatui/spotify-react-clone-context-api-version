@@ -1,15 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+@import 'resetCss';
+@import 'mixins';
+@import 'variables';
 
 html,
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: Circular, Helvetica, Arial, sans-serif, IosFix;
   font-size: 12px;
 
   @include desktopMax {
-    font-size: 6px;
+    font-size: 10px;
+  }
+
+  @include tableMax {
+    font-size: 8px;
   }
 }
 
 a {
   text-decoration: none;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
