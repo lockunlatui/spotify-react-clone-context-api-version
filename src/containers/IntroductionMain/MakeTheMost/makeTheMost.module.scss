@@ -1,0 +1,71 @@
+@import "global";
+
+.container {
+  @include flex;
+
+  .makeTheMostContainer {
+    @include containerScale;
+    @include flex-column;
+    padding-top: 60px;
+    padding-bottom: 80px;
+    margin: 0 auto;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .wrapTitleMakeTheMost {
+      @include bigDesktopMax {
+        width: 66%;
+      }
+    }
+
+    .makeTheMostFeatures {
+      @include flex-row;
+      flex-wrap: wrap;
+
+      li {
+        @include flex-column;
+        @include tableMax {
+          width: 100%;
+        }
+
+        @include table {
+          width: 50%;
+        }
+
+        @include desktop {
+          width: 33.3%;
+        }
+
+        .name {
+          margin-top: 24px;
+          margin-bottom: 12px;
+          font-weight: $blackFont;
+        }
+
+        .desc {
+          display: block;
+          @include marginWithoutLeft(1.5rem, 2rem, 2rem);
+
+          .play {
+            span {
+              color: $green;
+            }
+          }
+        }
+
+        div {
+          margin-top: auto;
+          .featureBtn {
+            padding:  0;
+            font-size: 12px;
+            color: $green;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}

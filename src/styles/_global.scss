@@ -1,23 +1,8 @@
+
+@import 'fonts';
+
 @import 'variables';
 
 @import 'mixins';
 
-@import 'resetCss';
-
-@import 'common';
-
 @import 'animation';
-
-html,
-body {
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-
-  @include desktopMax {
-    font-size: 10px;
-  }
-
-  @include tableMax {
-    font-size: 8px;
-  }
-}

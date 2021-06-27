@@ -71,6 +71,7 @@
 
 @mixin marginWithoutLeft($top, $right, $bottom) {
   margin: $top $right $bottom;
+  margin-left: 0;
 }
 
 @mixin marginAuto($number) {
@@ -87,6 +88,18 @@
 @mixin flex {
   display: flex;
   display: -webkit-flex;
+}
+
+@mixin flex-column {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+}
+
+@mixin flex-row {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
 }
 
 /** CONTAINER SCALE */

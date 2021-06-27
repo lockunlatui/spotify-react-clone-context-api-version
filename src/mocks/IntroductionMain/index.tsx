@@ -1,7 +1,5 @@
+import { FormattedMessage } from "react-intl";
 import { Images } from "@utils/index";
-
-
-console.log("Images", Images);
 
 const boxMusic: any = [
   {
@@ -12,7 +10,7 @@ const boxMusic: any = [
   },
   {
     id: `2`,
-    img:  Images["BOXMUSIC2"],
+    img: Images["BOXMUSIC2"],
     title: "LUMBERJACK",
     subtitle: `Tyler, The Creator`,
   },
@@ -42,4 +40,42 @@ const boxMusic: any = [
   },
 ];
 
-export { boxMusic };
+const makeTheMostFeatures = [
+  {
+    id: `1`,
+    name: (
+      <FormattedMessage id="introductionMain.makeTheMost.manageYourAccount" />
+    ),
+    desc: (
+      <FormattedMessage id="introductionMain.makeTheMost.manageYourAccount.description" />
+    ),
+    linkName: (
+      <FormattedMessage id="introductionMain.makeTheMost.manageYourAccount.nameButton" />
+    ),
+    link: `/manageAccount`,
+  },
+  {
+    id: `2`,
+    name: <FormattedMessage id="introductionMain.makeTheMost.getOurFreeApp" />,
+    desc: (
+      <FormattedMessage id="introductionMain.makeTheMost.getOurFreeApp.description" />
+    ),
+    linkName: (
+      <FormattedMessage id="introductionMain.makeTheMost.getOurFreeApp.nameButton" />
+    ),
+    link: `/downloadDesktopApp`,
+  },
+  {
+    id: `3`,
+    name: <FormattedMessage id="introductionMain.makeTheMost.listenOnTheWeb" />,
+    desc: (
+      <FormattedMessage id="introductionMain.makeTheMost.listenOnTheWeb.description" />
+    ),
+    linkName: (
+      <FormattedMessage id="introductionMain.makeTheMost.listenOnTheWeb.nameButton" />
+    ),
+    link: `/openWebPlayer`,
+  },
+];
+
+export { boxMusic, makeTheMostFeatures };
