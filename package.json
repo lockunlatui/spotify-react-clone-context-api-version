@@ -37,9 +37,15 @@
   "scripts": {
     "start": "craco start",
     "start:api": " nodemon --config nodemon.json api/index.ts",
-    "build": "craco  build",
-    "test": "craco  test",
+    "build": "craco build",
+    "test": "craco test",
+    "commit": "git cz",
     "eject": "react-scripts eject"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlit -E HUSKEY_GIT_PARAMS"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -71,6 +77,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/request": "^2.48.5",
     "@types/webpack-env": "^1.16.0",
+    "husky": "^6.0.0",
     "nodemon": "^2.0.7",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
