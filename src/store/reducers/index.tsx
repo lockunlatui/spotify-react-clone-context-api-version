@@ -1,3 +1,3 @@
-import  headerReducer  from "./header";
+import headerReducer from "./header";
 
 export { headerReducer };

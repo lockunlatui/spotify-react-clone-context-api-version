@@ -40,11 +40,13 @@
     "build": "craco build",
     "test": "craco test",
     "commit": "git cz",
+    "lint": "prettier --check .",
+    "format": "prettier --write .",
     "eject": "react-scripts eject"
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlit -E HUSKEY_GIT_PARAMS"
+      "pre-commit": "lint"
     }
   },
   "eslintConfig": {
@@ -79,6 +81,7 @@
     "@types/webpack-env": "^1.16.0",
     "husky": "^6.0.0",
     "nodemon": "^2.0.7",
+    "prettier": "^2.3.2",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
   }

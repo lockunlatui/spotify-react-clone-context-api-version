@@ -6,7 +6,7 @@ import {
   GET_USER_FETCHED,
   GET_USER_ERROR,
   SET_TOKEN,
-  CHANGE_LANGUAGE
+  CHANGE_LANGUAGE,
 } from "@store/actionTypes/index";
 
 /** Services */

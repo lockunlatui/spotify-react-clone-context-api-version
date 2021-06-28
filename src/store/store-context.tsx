@@ -20,13 +20,12 @@ export const reducer = (
   state: IAppState | any,
   action: { type: string; payload: any }
 ) => {
-
   const stateHeader = headerReducer(state, action);
   const rootState = () => {
     return {
       ...state,
       ...stateHeader,
-    }
-  }
+    };
+  };
   return rootState();
 };

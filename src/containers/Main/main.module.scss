@@ -1,4 +1,4 @@
-@import 'global';
+@import "global";
 
 .container {
   & > .spotifyPremiumSection {
@@ -65,20 +65,20 @@
   }
 
   & > .spotifyFreeSection {
-    background-image: url('../../assets/images/spotifyFreeMobile.svg');
+    background-image: url("../../assets/images/spotifyFreeMobile.svg");
     background-position: 65% 55%;
     background-size: auto 170%;
     background-repeat: no-repeat;
     background-color: $blueLightDark;
 
     @include table {
-      background-image: url('../../assets/images/spotifyFreeTable.svg');
+      background-image: url("../../assets/images/spotifyFreeTable.svg");
       background-size: auto 115%;
       background-position: center center;
     }
 
     @include desktop {
-      background-image: url('../../assets/images/spotifyFree.svg');
+      background-image: url("../../assets/images/spotifyFree.svg");
       background-size: auto 100%;
       background-position: right center;
     }

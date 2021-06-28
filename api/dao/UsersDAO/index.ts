@@ -6,7 +6,7 @@ class UsersDAO {
       return;
     }
     try {
-      users = await conn.db(process.env.DATABASE_NAME).collection('users');
+      users = await conn.db(process.env.DATABASE_NAME).collection("users");
     } catch (error) {
       console.log(`connect db and collection users: ${error}`);
     }

@@ -1,4 +1,4 @@
-@import 'global';
+@import "global";
 
 .header {
   & > .navContainer {
@@ -29,7 +29,7 @@
       }
 
       & > .brandWrapper {
-       @include flex;
+        @include flex;
         & > .logoLink {
           @include widthHeight(132px, 40px);
 

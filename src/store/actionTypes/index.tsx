@@ -3,7 +3,7 @@ import {
   GET_USER_FETCHED,
   GET_USER_ERROR,
   SET_TOKEN,
-  CHANGE_LANGUAGE
+  CHANGE_LANGUAGE,
 } from "./header";
 
 export {
@@ -11,5 +11,5 @@ export {
   GET_USER_FETCHED,
   GET_USER_ERROR,
   SET_TOKEN,
-  CHANGE_LANGUAGE
+  CHANGE_LANGUAGE,
 };

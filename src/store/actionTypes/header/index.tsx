@@ -1,10 +1,10 @@
 /** USERS */
-export const GET_USER_FETCHING = 'GET_USER_FETCHING';
-export const GET_USER_FETCHED = 'GET_USER_FETCHED';
-export const GET_USER_ERROR= 'GET_USER_ERROR';
+export const GET_USER_FETCHING = "GET_USER_FETCHING";
+export const GET_USER_FETCHED = "GET_USER_FETCHED";
+export const GET_USER_ERROR = "GET_USER_ERROR";
 
 /** TOKEN */
-export const SET_TOKEN = 'SET_TOKEN';
+export const SET_TOKEN = "SET_TOKEN";
 
 /** LANGUAGE */
-export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
+export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";

@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import c from 'classnames';
+import { useState } from "react";
+import c from "classnames";
 
 /** Mocks */
-import { menus } from '@mocks/Header/index';
+import { menus } from "@mocks/Header/index";
 
 /** Components */
-import { Logo } from '@components/index';
-import Nav from './Nav';
-import MultipleLanguage from './MultipleLanguage';
+import { Logo } from "@components/index";
+import Nav from "./Nav";
+import MultipleLanguage from "./MultipleLanguage";
 
 /** Styles */
-import Styles from './header.module.scss';
+import Styles from "./header.module.scss";
 
 const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -30,7 +30,7 @@ const Header = () => {
         <div className={Styles.wrapper}>
           <div className={Styles.brandWrapper}>
             <a
-              href='https://www.spotify.com/vn-vi/'
+              href="https://www.spotify.com/vn-vi/"
               className={Styles.logoLink}
             >
               <span>
@@ -45,7 +45,7 @@ const Header = () => {
             <button
               onClick={() => onOpenMenu()}
               className={Styles.menuButtonExpand}
-              type='button'
+              type="button"
             >
               <span></span>
               <span></span>

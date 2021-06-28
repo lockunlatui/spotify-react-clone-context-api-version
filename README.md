@@ -1,31 +1,40 @@
 # Spotify React Clone - Context API Version
+
 <img src="./screenshot/spotify-logo.jpg" width="300">
 <img align="right" src="./screenshot/reactjs-logo.png" width="200">
 
 Spotify React Clone is a using ReactJS library to creating a web single page.
 
 ## Features
+
 - Login SSO with Spotify credentials.
 
 ## Install
+
 ### Node
+
 ```
 https://nodejs.org/en/
 ```
+
 You should choose to "Recommended For Most Users" version.
 
 ### ReactJS
+
 ```
 npm install -g create-react-app
 ```
 
 ## Getting started
+
 Use this link to clone this project:
+
 ```
 https://github.com/lockunlatui/spotify-react-clone-context-api-version.git
 ```
 
 ### Setup to Client
+
 You use to below command:
 
 ```
@@ -69,7 +78,7 @@ Now we create new project as click to
 
 <img src="./screenshot/new-project.png">
 
-and enter field Name Project 
+and enter field Name Project
 <img src="./screenshot/enter-field-project.png">
 
 and Next and Create Project.
@@ -91,10 +100,10 @@ Okey. After Cluster is created. We click to Connect.
 
 <img src="./screenshot/connecting-1.png">
 
-(1) Click to "Add Your Current IP Address" to MongoDB know that IP is permitted. 
+(1) Click to "Add Your Current IP Address" to MongoDB know that IP is permitted.
 (2) You fill to "Username" and "Password". This step will support us connecting with Mongodb.
 
-If you completed it show to this image. 
+If you completed it show to this image.
 
 <img src="./screenshot/connecting-2.png">
 
@@ -107,6 +116,7 @@ and copy this command
 ```
 mongodb+srv://dbUser:<password>@cluster0.xgfha.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 ```
+
 change <password> to my password of database "dbUser". And open file .env in my source.
 change "myFirstDatabase" to database in Collections.
 
@@ -125,7 +135,7 @@ and "Create". After copy name collection that I already created.
 In this case, I copy "spotifyCloneReact".
 <img src="./screenshot/create-database-2.png">
 
-and paste to .env file. 
+and paste to .env file.
 <img src="./screenshot/env-2.png">
 
 Okey. We created new Mongodb database for my application. If
@@ -142,7 +152,7 @@ Click "Create An App".
 
 <img src="./screenshot/auth-spotify-2.png">
 
-And click "Create". We have "Client ID" and "Client Secret" 
+And click "Create". We have "Client ID" and "Client Secret"
 
 <img src="./screenshot/auth-spotify-3.png">
 
@@ -162,7 +172,7 @@ So we completed all setup about environment.
 
 Now i use command:
 
-Start React app: 
+Start React app:
 
 ```
 npm start
@@ -175,8 +185,11 @@ npm run start:api
 ```
 
 ## Screenshot
+
 ## Home when page don't have authenticate
+
 <img src="./screenshot/home-not-authenticate.png">
 
 ## Home when page have authenticate
+
 <img src="./screenshot/home.png">

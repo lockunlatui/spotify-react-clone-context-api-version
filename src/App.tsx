@@ -18,7 +18,6 @@ import Styles from "./app.module.scss";
 /** Actions */
 import { changeLanguage } from "@store/actions/header";
 
-
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 

@@ -1,6 +1,6 @@
 import express, { Request } from "express";
 import cors from "cors";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
 import { Strategy } from "passport-spotify";
@@ -36,7 +36,8 @@ export type VerifyFunction = (
   done: VerifyCallback
 ) => void;
 
-const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REDIRECT_URL_CLIENT_REACT } = process.env;
+const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REDIRECT_URL_CLIENT_REACT } =
+  process.env;
 
 const app = express();
 app.use(cors());
@@ -61,7 +62,7 @@ passport.use(
     ) {
       process.nextTick(async function () {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        console.log('profile ======>', profile);
+        console.log("profile ======>", profile);
         userProfile = profile;
         await UsersDAO.addUser(profile);
         return done(null, profile);
@@ -124,7 +125,7 @@ app.get("/api/v1/logout", function (req, res) {
 });
 
 app.get("/api/v1/health", function (req, res) {
-  res.sendStatus(200)
+  res.sendStatus(200);
 });
 
 function ensureAuthenticated(req: any, res: any, next: any) {
@@ -135,7 +136,5 @@ function ensureAuthenticated(req: any, res: any, next: any) {
   res.status(401);
   return next();
 }
-
-
 
 export default app;

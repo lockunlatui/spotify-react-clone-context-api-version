@@ -1,4 +1,4 @@
-@import 'global';
+@import "global";
 
 .footer {
   background-color: $black;
@@ -30,7 +30,6 @@
       display: block;
       @include paddingShort(0px, 15px);
 
-        
       @include desktopMax {
         width: 100%;
       }
@@ -103,7 +102,7 @@
     .socialIcons {
       display: block;
       @include marginWithoutLeft(120px, 15px, 15px);
-   
+
       @include desktopMax {
         width: 100%;
       }
