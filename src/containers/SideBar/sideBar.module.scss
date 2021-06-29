@@ -1,0 +1,16 @@
+@import "global";
+
+.container {
+  grid-area: sideBar;
+  width: $sideBarWidth;
+  z-index: 3;
+  background-color: $black;
+  color: $grayLight;
+
+  .logoContainer {
+    color: $white;
+    @include widthHeight(100%, 40px);
+    max-width: 131px;
+    margin: 24px;
+  }
+}

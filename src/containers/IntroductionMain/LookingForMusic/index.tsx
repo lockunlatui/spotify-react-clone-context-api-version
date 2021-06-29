@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,13 +14,18 @@ import { Typography, Button } from "@components/index";
 import { boxMusic } from "@mocks/IntroductionMain";
 
 /** Constants */
-import { Colors } from "@constants/index";
+import { COLORS, ROUTES } from "@constants/index";
 
 /** Styles */
 import Styles from "./lookingForMusic.module.scss";
 
 const LookingForMusic = () => {
+  const history = useHistory();
   useEffect(() => {}, []);
+
+  const onOpenWebPlayer = () => {
+    history.push(ROUTES.OPEN);
+  };
 
   return (
     <section className={Styles.container}>
@@ -36,9 +42,10 @@ const LookingForMusic = () => {
             </Typography>
             <Button
               className={Styles.openWebPlayer}
-              color={Colors.white}
-              backgroundColor={Colors.green}
+              color={COLORS.WHITE}
+              backgroundColor={COLORS.GREEN}
               variant="contained"
+              onClick={() => onOpenWebPlayer()}
             >
               <FormattedMessage id="introductionMain.openWebPlayer" />
             </Button>
@@ -60,7 +67,7 @@ const LookingForMusic = () => {
                           <div className={Styles.contentDetail}>
                             <figcaption className={Styles.albumPlayIcon}>
                               <FontAwesomeIcon
-                                color={Colors.white}
+                                color={COLORS.WHITE}
                                 icon={faPlayCircle}
                               />
                               <Typography
@@ -87,7 +94,7 @@ const LookingForMusic = () => {
           </div>
           <a href="#load" className={Styles.btnScroll}>
             <div className={Styles.iconScrollDown}>
-              <FontAwesomeIcon color={Colors.white} icon={faArrowCircleDown} />
+              <FontAwesomeIcon color={COLORS.WHITE} icon={faArrowCircleDown} />
             </div>
           </a>
         </div>

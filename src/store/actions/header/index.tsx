@@ -35,9 +35,11 @@ export const getUser = (dispatch: (arg0: IUserPayload) => void) => {
   UserService.getUser()
     .then((res: AxiosResponse<any>) => {
       dispatch(setToken(res.data.id));
+      localStorage.setItem("user", JSON.stringify(res.data))
       dispatch(getUserFetched(res.data));
     })
     .catch((_) => {
+      localStorage.setItem("user", "")
       dispatch(getUserError());
     });
 };

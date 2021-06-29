@@ -16,7 +16,7 @@ import { StoreContext } from "@store/store-context";
 import useOnClickOutside from "@hooks/useOnClickOutside";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Colors } from "@constants/index";
+import { COLORS } from "@constants/index";
 
 type INavProps = {
   menus: IMenu[];
@@ -57,7 +57,7 @@ const Nav = ({ menus, isOpenOfMobile }: INavProps) => {
                   alt="Avatar"
                 />
               ) : (
-                <FontAwesomeIcon color={Colors.white} icon={faUserCircle} />
+                <FontAwesomeIcon color={COLORS.WHITE} icon={faUserCircle} />
               )}
 
               <div className={Styles.profileTitle}>

@@ -7,6 +7,7 @@ type IButtonProps = {
   backgroundColor?: any;
   className?: string;
   variant?: string;
+  onClick?: any;
 };
 
 const Button = ({
@@ -15,6 +16,7 @@ const Button = ({
   backgroundColor,
   className,
   variant,
+  onClick,
 }: IButtonProps) => {
   const variantButton = () => {
     switch (variant) {
@@ -26,6 +28,7 @@ const Button = ({
   };
   return (
     <button
+      onClick={onClick}
       style={{
         color: color,
         backgroundColor: backgroundColor,

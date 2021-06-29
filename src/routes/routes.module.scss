@@ -1,0 +1,11 @@
+@import 'global';
+
+.openPlayerContainer {
+  @include widthHeight(100%, 100%);
+  display: grid;
+  grid-template-areas: 
+  "sideBar mainView";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  position: relative;
+}

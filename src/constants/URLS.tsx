@@ -1,6 +1,6 @@
-export const URLS = {
-  localhost: `http://localhost:3000/api/v1/`,
-  dev: ``,
-  qa: ``,
-  production: ``,
-};
+export enum URLS {
+  LOCALHOST = `http://localhost:3000/api/v1/`,
+  DEV = ``,
+  QA = ``,
+  PROD = ``,
+}

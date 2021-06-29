@@ -4,9 +4,6 @@ import { IntlProvider } from "react-intl";
 /** Assets */
 import translations from "@assets/translations/index";
 
-/** Components */
-import { Header, Footer } from "@containers/index";
-
 /** Interfaces */
 import { initialState, StoreContext, reducer } from "./store/store-context";
 
@@ -48,9 +45,7 @@ function App() {
         messages={translations[header.language]}
         locale={header.language}
       >
-        <Header />
-        {routes(header.token)}
-        <Footer />
+        {routes()}
       </IntlProvider>
     </StoreContext.Provider>
   );
