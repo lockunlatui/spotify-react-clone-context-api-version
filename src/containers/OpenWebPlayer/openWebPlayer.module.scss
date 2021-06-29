@@ -1,0 +1,7 @@
+@import 'global';
+
+.container {
+  grid-area: mainView;
+  background-color: $black;
+  width: 100%;
+}

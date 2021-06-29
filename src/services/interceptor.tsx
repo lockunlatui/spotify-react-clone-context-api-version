@@ -21,6 +21,6 @@ axios.interceptors.response.use(undefined, (error) => {
   console.log("===========================END AXIOS====================");
 });
 
-axios.defaults.baseURL = URLS.localhost;
+axios.defaults.baseURL = URLS.LOCALHOST;
 
 export default axios;
