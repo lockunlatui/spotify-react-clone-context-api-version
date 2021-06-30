@@ -11,17 +11,12 @@
   align-items: center;
 
   img {
-    @include widthHeight(100%, 45%);
-    max-width: 400px;
+    @include widthHeight(500px, 500px);
     -webkit-animation: spin 4s linear infinite;
     -moz-animation: spin 4s linear infinite;
     animation: spin 4s linear infinite;
     @include mobileMax {
       max-width: 290px;
-    }
-
-    & > img {
-      @include widthHeight(100%, 45%);
     }
   }
 }

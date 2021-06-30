@@ -37,7 +37,7 @@ const Main = () => {
             </div>
           </article>
           <div className={Styles.imgSP}>
-            <img src={SpotifyPremiumImg} alt="Spotify Premium" />
+            <img width="500" height="500" src={SpotifyPremiumImg} alt="Spotify Premium" />
           </div>
         </div>
       </section>

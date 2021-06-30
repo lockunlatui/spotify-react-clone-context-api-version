@@ -13,4 +13,33 @@
     max-width: 131px;
     margin: 24px;
   }
+
+  .menus {
+    color:$white;
+
+    li {
+      @include paddingShort(10px, 10px);
+      margin: 10px;
+      border-radius: 5px;
+      display: flex;
+      svg {
+        @include widthHeight(24px, 24px);
+        margin-right: 10px;
+        color: $grayLight;
+      }
+      button {
+        color: inherit;
+        text-transform: capitalize;
+        letter-spacing: normal;
+        font-size: 14px;
+      }
+    }
+
+    .active {
+      background-color: #282828;
+      svg {
+        color: $white;
+      }
+    }
+  }
 }

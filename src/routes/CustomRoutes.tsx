@@ -1,22 +1,21 @@
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-
-/** Components */
-import {
-  Main,
-  IntroductionMain,
-  NotFound,
-  OpenWebPlayer,
-  Header,
-  Footer,
-  SideBar,
-  TopNav,
-} from "@containers/index";
+import { useEffect, useState, lazy, Suspense } from "react";
 
 /** Constants */
 import { ROUTES } from "@constants/routes";
 
 import Styles from "./routes.module.scss";
+
+/** Components */
+const Main = lazy(() => import("@containers/Main"));
+const IntroductionMain = lazy(() => import("@containers/IntroductionMain"));
+const NotFound = lazy(() => import("@containers/NotFound"));
+const OpenWebPlayer = lazy(() => import("@containers/OpenWebPlayer"))
+const Header = lazy(() => import("@containers/Header"))
+const Footer = lazy(() => import("@containers/Footer"))
+const SideBar = lazy(() => import("@containers/SideBar"))
+const TopNav = lazy(() => import("@containers/TopNav"))
+
 
 const CustomRoutes = () => {
   const location = useLocation();
@@ -58,7 +57,7 @@ const CustomRoutes = () => {
   };
 
   const user: any = localStorage.getItem("user");
-  console.log("user", user);
+
   const isAuthenticated = Boolean(user)
     ? Object.keys(JSON.parse(user))?.length
     : false;
@@ -69,7 +68,7 @@ const CustomRoutes = () => {
 
   if (isShowHeaderFooter) {
     return (
-      <>
+      <Suspense fallback={<div>Loading...</div>}>
         <Header />
         <Switch>
           <PublicComponent
@@ -86,10 +85,11 @@ const CustomRoutes = () => {
           <Route component={NotFound} />
         </Switch>
         <Footer />
-      </>
+      </Suspense>
     );
   }
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className={Styles.openPlayerContainer}>
       <SideBar />
       <TopNav />
@@ -101,6 +101,7 @@ const CustomRoutes = () => {
         />
       </Switch>
     </div>
+    </Suspense>
   );
 };
 

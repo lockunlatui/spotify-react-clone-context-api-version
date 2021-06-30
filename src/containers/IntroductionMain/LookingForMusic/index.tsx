@@ -29,6 +29,11 @@ const LookingForMusic = () => {
 
   return (
     <section className={Styles.container}>
+      <head>
+        {boxMusic.map((box: any) => {
+          return <link key={box.id} rel="preload" as="image" href={box.img} />;
+        })}
+      </head>
       <div className={Styles.lookForMusicBg} />
       <div className={Styles.lookForMusicBgGradient} />
       <div className={Styles.premiumPromoContainer}>
