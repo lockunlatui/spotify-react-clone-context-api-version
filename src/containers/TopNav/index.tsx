@@ -21,7 +21,6 @@ import { getUser } from "@store/actions/index";
 const TopNav = () => {
   const [state, dispatch] = useContext(StoreContext);
   const { user } = state.header;
-  console.log("user", user);
 
   useEffect(() => {
     getUser(dispatch);

@@ -38,7 +38,7 @@ function App() {
         }}
         className={Styles.loading}
       >
-        <img src={Loading} alt="Loading" />
+        <img width="500" height="500" src={Loading} alt="Loading" />
       </div>
       <IntlProvider
         defaultLocale={header.language}
