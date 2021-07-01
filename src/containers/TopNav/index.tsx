@@ -9,8 +9,8 @@ import {
 /** Components */
 import { Button, Typography } from "@components/index";
 
-/** Constants */
-import { COLORS } from "@constants/index";
+/** Enums */
+import { Colors } from "@enums/index";
 
 /** Store */
 import { StoreContext } from "@store/store-context";
@@ -30,10 +30,10 @@ const TopNav = () => {
       <div className={Styles.topContainer}>
         <div className={Styles.btnContainer}>
           <Button className={Styles.btnLeft}>
-            <FontAwesomeIcon color={COLORS.WHITE} icon={faChevronLeft} />
+            <FontAwesomeIcon color={Colors.White} icon={faChevronLeft} />
           </Button>
           <Button className={Styles.btnLeft}>
-            <FontAwesomeIcon color={COLORS.WHITE} icon={faChevronRight} />
+            <FontAwesomeIcon color={Colors.White} icon={faChevronRight} />
           </Button>
         </div>
         <div className={Styles.profileMenu}>

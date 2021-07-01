@@ -5,5 +5,8 @@
   "header.nav.menu.support": "Support",
   "header.nav.menu.download": "Download",
   "header.nav.menu.signUp": "Sign Up",
-  "header.nav.menu.logIn": "Log In"
+  "header.nav.menu.logIn": "Log In",
+  "header.nav.menu.profile": "Profile",
+  "header.nav.menu.account": "Account",
+  "header.nav.menu.logout": "Log out"
 }

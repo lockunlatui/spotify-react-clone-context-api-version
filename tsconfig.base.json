@@ -10,7 +10,7 @@
       "@mocks/*": ["src/mocks/*"],
       "@store/*": ["src/store/*"],
       "@assets/*": ["src/assets/*"],
-      "@constants/*": ["src/constants/*"],
+      "@enums/*": ["src/enums/*"],
       "@utils/*": ["src/utils/*"],
       "@api/*": ["api/*"]
     }

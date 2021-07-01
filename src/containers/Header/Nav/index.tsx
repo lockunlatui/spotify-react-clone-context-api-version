@@ -2,6 +2,7 @@ import { useEffect, useContext, useState, useRef } from "react";
 import Styles from "./nav.module.scss";
 import c from "classnames";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { FormattedMessage } from "react-intl";
 
 /** Actions */
 import { getUser } from "@store/actions/index";
@@ -16,7 +17,8 @@ import { StoreContext } from "@store/store-context";
 import useOnClickOutside from "@hooks/useOnClickOutside";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { COLORS } from "@constants/index";
+/** Enums */
+import { Colors, ApiRoutes } from "@enums/index";
 
 type INavProps = {
   menus: IMenu[];
@@ -57,11 +59,13 @@ const Nav = ({ menus, isOpenOfMobile }: INavProps) => {
                   alt="Avatar"
                 />
               ) : (
-                <FontAwesomeIcon color={COLORS.WHITE} icon={faUserCircle} />
+                <FontAwesomeIcon color={Colors.White} icon={faUserCircle} />
               )}
 
               <div className={Styles.profileTitle}>
-                <span>Hồ Sơ</span>
+                <span>
+                  <FormattedMessage id="header.nav.menu.profile" />
+                </span>
                 <svg
                   className={isShowProfile ? Styles.active : undefined}
                   viewBox="0 0 1024 1024"
@@ -75,11 +79,13 @@ const Nav = ({ menus, isOpenOfMobile }: INavProps) => {
                 <ul className={Styles.wrapList}>
                   <li className={Styles.list}>
                     <a href="https://www.spotify.com/vn-vi/account/overview/">
-                      Tài khoản
+                      <FormattedMessage id="header.nav.menu.account" />
                     </a>
                   </li>
                   <li className={Styles.list}>
-                    <a href="/api/v1/logout">Đăng xuất</a>
+                    <a href={`${ApiRoutes.Logout}`}>
+                      <FormattedMessage id="header.nav.menu.logout" />
+                    </a>
                   </li>
                 </ul>
               </div>

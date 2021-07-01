@@ -1,7 +1,7 @@
 import axios from "axios";
 
-/** Constants */
-import { URLS } from "@constants/index";
+/** Enums */
+import { Urls } from "@enums/index";
 
 axios.interceptors.request.use(
   (request) => {
@@ -21,6 +21,6 @@ axios.interceptors.response.use(undefined, (error) => {
   console.log("===========================END AXIOS====================");
 });
 
-axios.defaults.baseURL = URLS.LOCALHOST;
+axios.defaults.baseURL = Urls.Localhost;
 
 export default axios;

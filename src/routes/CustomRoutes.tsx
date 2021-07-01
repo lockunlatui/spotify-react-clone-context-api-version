@@ -2,7 +2,7 @@ import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { useEffect, useState, lazy, Suspense } from "react";
 
 /** Constants */
-import { ROUTES } from "@constants/routes";
+import { Routes } from "@enums/index";
 
 import Styles from "./routes.module.scss";
 
@@ -49,11 +49,11 @@ const CustomRoutes = () => {
   };
 
   const PrivateComponent = ({ component: Component, auth, ...rest }: any) => {
-    return renderRouter(rest, auth, Component, ROUTES.HOME_PAGE);
+    return renderRouter(rest, auth, Component, Routes.HomePage);
   };
 
   const PublicComponent = ({ component: Component, auth, ...rest }: any) => {
-    return renderRouter(rest, !auth, Component, ROUTES.HOME_PAGE_LOGGED);
+    return renderRouter(rest, !auth, Component, Routes.HomePageHasAuthenticate);
   };
 
   const user: any = localStorage.getItem("user");
@@ -63,7 +63,7 @@ const CustomRoutes = () => {
     : false;
 
   useEffect(() => {
-    setIsShowHeaderFooter(!location.pathname?.includes(ROUTES.OPEN));
+    setIsShowHeaderFooter(!location.pathname?.includes(Routes.Open));
   }, [location]);
 
   if (isShowHeaderFooter) {
@@ -73,13 +73,13 @@ const CustomRoutes = () => {
         <Switch>
           <PublicComponent
             auth={Boolean(isAuthenticated)}
-            path={ROUTES.HOME_PAGE}
+            path={Routes.HomePage}
             exact
             component={Main}
           />
           <PrivateComponent
             auth={Boolean(isAuthenticated)}
-            path={ROUTES.HOME_PAGE_LOGGED}
+            path={Routes.HomePageHasAuthenticate}
             component={IntroductionMain}
           />
           <Route component={NotFound} />
@@ -96,7 +96,7 @@ const CustomRoutes = () => {
       <Switch>
         <PrivateComponent
           auth={Boolean(isAuthenticated)}
-          path={ROUTES.OPEN}
+          path={Routes.Open}
           component={OpenWebPlayer}
         />
       </Switch>
