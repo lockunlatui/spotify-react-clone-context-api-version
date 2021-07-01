@@ -13,8 +13,8 @@ import { Typography, Button } from "@components/index";
 /** Mocks */
 import { boxMusic } from "@mocks/IntroductionMain";
 
-/** Constants */
-import { COLORS, ROUTES } from "@constants/index";
+/** Enums */
+import { Colors, Routes } from "@enums/index";
 
 /** Styles */
 import Styles from "./lookingForMusic.module.scss";
@@ -24,7 +24,7 @@ const LookingForMusic = () => {
   useEffect(() => {}, []);
 
   const onOpenWebPlayer = () => {
-    history.push(ROUTES.OPEN);
+    history.push(Routes.Open);
   };
 
   return (
@@ -47,8 +47,8 @@ const LookingForMusic = () => {
             </Typography>
             <Button
               className={Styles.openWebPlayer}
-              color={COLORS.WHITE}
-              backgroundColor={COLORS.GREEN}
+              color={Colors.White}
+              backgroundColor={Colors.Green}
               variant="contained"
               onClick={() => onOpenWebPlayer()}
             >
@@ -72,7 +72,7 @@ const LookingForMusic = () => {
                           <div className={Styles.contentDetail}>
                             <figcaption className={Styles.albumPlayIcon}>
                               <FontAwesomeIcon
-                                color={COLORS.WHITE}
+                                color={Colors.Green}
                                 icon={faPlayCircle}
                               />
                               <Typography
@@ -99,7 +99,7 @@ const LookingForMusic = () => {
           </div>
           <a href="#load" className={Styles.btnScroll}>
             <div className={Styles.iconScrollDown}>
-              <FontAwesomeIcon color={COLORS.WHITE} icon={faArrowCircleDown} />
+              <FontAwesomeIcon color={Colors.White} icon={faArrowCircleDown} />
             </div>
           </a>
         </div>

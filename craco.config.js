@@ -10,7 +10,7 @@ module.exports = {
       "@mocks": path.resolve(__dirname, "./src/mocks/"),
       "@store": path.resolve(__dirname, "./src/store/"),
       "@assets": path.resolve(__dirname, "./src/assets/"),
-      "@constants": path.resolve(__dirname, "./src/constants/"),
+      "@enums": path.resolve(__dirname, "./src/enums/"),
       "@utils": path.resolve(__dirname, "./src/utils/"),
       "@api": path.resolve(__dirname, "./api/"),
     },

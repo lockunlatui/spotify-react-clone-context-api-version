@@ -5,5 +5,8 @@
   "header.nav.menu.support": "Hỗ trợ",
   "header.nav.menu.download": "Tải xuống",
   "header.nav.menu.signUp": "Đăng ký",
-  "header.nav.menu.logIn": "Đăng nhập"
+  "header.nav.menu.logIn": "Đăng nhập",
+  "header.nav.menu.profile": "Hồ sơ",
+  "header.nav.menu.account": "Tài khoản",
+  "header.nav.menu.logout": "Đăng xuất"
 }

@@ -8,13 +8,19 @@ import { changeLanguage } from "@store/actions/header";
 /** Styles */
 import Styles from "./multipleLanguage.module.scss";
 
+/** Enums */
+import { Languages } from "@enums/index";
+
 const MultipleLanguage = (props: any) => {
   const [state, dispatch] = useContext(StoreContext);
 
   const { header } = state;
 
   const onChangeLanguage = () => {
-    const language = header.language === "en" ? "vi" : "en";
+    const language =
+      header.language === Languages.English
+        ? Languages.Vietnamese
+        : Languages.English;
     localStorage.setItem("language", language);
     dispatch(changeLanguage(language));
   };
