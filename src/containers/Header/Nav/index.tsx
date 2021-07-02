@@ -1,8 +1,8 @@
 import { useEffect, useContext, useState, useRef } from "react";
-import Styles from "./nav.module.scss";
 import c from "classnames";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FormattedMessage } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /** Actions */
 import { getUser } from "@store/actions/index";
@@ -15,10 +15,12 @@ import { StoreContext } from "@store/store-context";
 
 /** Hooks */
 import useOnClickOutside from "@hooks/useOnClickOutside";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /** Enums */
 import { Colors, ApiRoutes } from "@enums/index";
+
+/** Styles */
+import Styles from "./nav.module.scss";
 
 type INavProps = {
   menus: IMenu[];
@@ -40,7 +42,7 @@ const Nav = ({ menus, isOpenOfMobile }: INavProps) => {
     setIsShowProfile(!isShowProfile);
   };
 
-  const renderProfile = (idxMenu: number, menus: any, itemMenu: any) => {
+  const renderProfile = (idxMenu: number, menus: IMenu[], itemMenu: IMenu) => {
     if (Boolean(Object.keys(user.data).length)) {
       if (idxMenu === menus.length - 2) {
         return;

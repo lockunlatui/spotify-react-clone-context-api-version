@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { FormattedMessage } from "react-intl";
+
+/** Stores */
 import { StoreContext } from "@store/store-context";
 
 /** Actions */
@@ -11,7 +13,7 @@ import Styles from "./multipleLanguage.module.scss";
 /** Enums */
 import { Languages } from "@enums/index";
 
-const MultipleLanguage = (props: any) => {
+const MultipleLanguage = () => {
   const [state, dispatch] = useContext(StoreContext);
 
   const { header } = state;
