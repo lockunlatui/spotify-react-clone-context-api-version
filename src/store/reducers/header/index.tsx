@@ -1,6 +1,6 @@
 /** Interfaces */
-import { IAppState } from "@interfaces/App";
-import { IUserPayload } from "@interfaces/Header";
+import { AppState } from "@interfaces/App";
+import { UserPayload } from "@interfaces/Header";
 
 /** Action Types */
 import {
@@ -11,7 +11,7 @@ import {
   CHANGE_LANGUAGE,
 } from "@store/actionTypes";
 
-const headerReducer = (state: IAppState, action: IUserPayload) => {
+const headerReducer = (state: AppState, action: UserPayload) => {
   switch (action.type) {
     case GET_USER_FETCHING:
       return {

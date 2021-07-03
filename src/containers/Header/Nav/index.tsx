@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getUser } from "@store/actions/index";
 
 /** Interfaces */
-import { IMenu } from "@interfaces/Header";
+import { Menu } from "@interfaces/Header";
 
 /** Store */
 import { StoreContext } from "@store/store-context";
@@ -23,7 +23,7 @@ import { Colors, ApiRoutes } from "@enums/index";
 import Styles from "./nav.module.scss";
 
 type INavProps = {
-  menus: IMenu[];
+  menus: Menu[];
   isOpenOfMobile?: boolean;
 };
 
@@ -42,7 +42,7 @@ const Nav = ({ menus, isOpenOfMobile }: INavProps) => {
     setIsShowProfile(!isShowProfile);
   };
 
-  const renderProfile = (idxMenu: number, menus: IMenu[], itemMenu: IMenu) => {
+  const renderProfile = (idxMenu: number, menus: Menu[], itemMenu: Menu) => {
     if (Boolean(Object.keys(user.data).length)) {
       if (idxMenu === menus.length - 2) {
         return;
@@ -112,7 +112,7 @@ const Nav = ({ menus, isOpenOfMobile }: INavProps) => {
       )}
     >
       <ul className={Styles.menus}>
-        {menus.map((menu: IMenu, index: number) => {
+        {menus.map((menu: Menu, index: number) => {
           return (
             <li
               key={menu.id}

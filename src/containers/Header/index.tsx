@@ -1,5 +1,6 @@
 import { useState } from "react";
 import c from "classnames";
+import { Link } from "react-router-dom";
 
 /** Mocks */
 import { menus } from "@mocks/Header/index";
@@ -8,6 +9,9 @@ import { menus } from "@mocks/Header/index";
 import { Logo } from "@components/index";
 import Nav from "./Nav";
 import MultipleLanguage from "./MultipleLanguage";
+
+/** Enums */
+import { Routes } from "@enums/routes";
 
 /** Styles */
 import Styles from "./header.module.scss";
@@ -29,14 +33,11 @@ const Header = () => {
       <div className={Styles.navContainer}>
         <div className={Styles.wrapper}>
           <div className={Styles.brandWrapper}>
-            <a
-              href="https://www.spotify.com/vn-vi/"
-              className={Styles.logoLink}
-            >
+            <Link to={Routes.HomePage} className={Styles.logoLink}>
               <span>
                 <Logo />
               </span>
-            </a>
+            </Link>
           </div>
           <Nav menus={menus} />
           <div

@@ -6,6 +6,10 @@ export enum Routes {
   HomePage = "/",
   HomePageHasAuthenticate = "/home",
   Open = "/open",
+  Search = "/search",
+  YourLibrary = "/your-library",
+  PlayList = '/playlist',
+  LikedSong = '/liked-song'
 }
 
 export enum ApiRoutes {

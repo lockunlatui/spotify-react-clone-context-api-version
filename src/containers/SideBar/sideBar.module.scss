@@ -6,6 +6,7 @@
   z-index: 3;
   background-color: $black;
   color: $grayLight;
+  height: 100%;
 
   .logoContainer {
     color: $white;
@@ -15,31 +16,90 @@
   }
 
   .menus {
-    color:$white;
+    color: $white;
 
     li {
       @include paddingShort(10px, 10px);
-      margin: 10px;
+      @include marginShort(5px, 10px);
       border-radius: 5px;
       display: flex;
-      svg {
-        @include widthHeight(24px, 24px);
-        margin-right: 10px;
-        color: $grayLight;
+      align-items: center;
+
+      &:nth-of-type(3) {
+        margin-bottom: 30px;
       }
-      button {
-        color: inherit;
-        text-transform: capitalize;
-        letter-spacing: normal;
-        font-size: 14px;
+
+      &:hover {
+        a {
+          color: $white;
+  
+          svg {
+            color: $white;
+          }
+        }
+      }
+
+      a {
+        color: $grayLight;
+        @include flex;
+        svg {
+          @include widthHeight(24px, 24px);
+          margin-right: 10px;
+          color: inherit;
+        }
+        button {
+          color: inherit;
+          text-transform: capitalize;
+          letter-spacing: normal;
+          font-size: 14px;
+        }
       }
     }
 
     .active {
       background-color: #282828;
-      svg {
+      a {
+        color: $white;
+
+        svg {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .line {
+    background-color: $gray;
+    @include widthHeight(90%, 0.5px);
+    @include marginShort(0, auto);
+  }
+
+  .playlists {
+    @include flex-column;
+    margin-top: 10px;
+    align-items: flex-start;
+    overflow: auto;
+    height: calc(100vh - 489px);
+
+    li {
+      margin-left: 15px;
+      margin-bottom: 5px;
+      cursor: pointer;
+
+      &:hover {
         color: $white;
       }
+    }
+  }
+
+  .installApp {
+    @include paddingShort(10px, 15px);
+    @include flex;
+    align-items: center;
+    svg {
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
     }
   }
 }

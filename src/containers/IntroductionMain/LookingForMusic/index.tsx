@@ -16,6 +16,9 @@ import { boxMusic } from "@mocks/IntroductionMain";
 /** Enums */
 import { Colors, Routes } from "@enums/index";
 
+/** Interfaces */
+import { BoxMusic } from "@interfaces/IntroductionMain";
+
 /** Styles */
 import Styles from "./lookingForMusic.module.scss";
 
@@ -30,7 +33,7 @@ const LookingForMusic = () => {
   return (
     <section className={Styles.container}>
       <head>
-        {boxMusic.map((box: any) => {
+        {boxMusic.map((box: BoxMusic) => {
           return <link key={box.id} rel="preload" as="image" href={box.img} />;
         })}
       </head>
@@ -59,7 +62,7 @@ const LookingForMusic = () => {
             <div className={Styles.boxMusic}>
               <div className={Styles.albumResult}>
                 <ul>
-                  {boxMusic.map((box: any) => {
+                  {boxMusic.map((box: BoxMusic) => {
                     return (
                       <li key={box.id}>
                         <figure>
@@ -97,7 +100,7 @@ const LookingForMusic = () => {
               </div>
             </div>
           </div>
-          <a href="#load" className={Styles.btnScroll}>
+          <a href="#toBeContinued" className={Styles.btnScroll}>
             <div className={Styles.iconScrollDown}>
               <FontAwesomeIcon color={Colors.White} icon={faArrowCircleDown} />
             </div>

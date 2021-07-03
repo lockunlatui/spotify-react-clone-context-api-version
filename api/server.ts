@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
 import { Strategy } from "passport-spotify";
-import { UsersDAO } from "./api/dao";
+import { UsersDAO, PlayListsDAO, PlayerDAO, TracksDAO } from "./dao";
 dotenv.config();
 
 export interface Profile {
@@ -43,6 +43,7 @@ const app = express();
 app.use(cors());
 
 let userProfile: any;
+let token: any;
 
 passport.use(
   new Strategy(
@@ -61,9 +62,8 @@ passport.use(
       done: VerifyCallback
     ) {
       process.nextTick(async function () {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        console.log("profile ======>", profile);
         userProfile = profile;
+        token = accessToken;
         await UsersDAO.addUser(profile);
         return done(null, profile);
       });
@@ -87,7 +87,14 @@ app.use(passport.session());
 app.get(
   "/api/v1/auth/spotify",
   passport.authenticate("spotify", {
-    scope: ["user-read-email", "user-read-private"],
+    scope: [
+      "user-read-email",
+      "user-read-private",
+      "playlist-read-private",
+      "user-read-currently-playing",
+      "user-read-playback-state",
+      "user-read-recently-played"
+    ],
   })
 );
 app.get(
@@ -127,6 +134,60 @@ app.get("/api/v1/logout", function (req, res) {
 app.get("/api/v1/health", function (req, res) {
   res.sendStatus(200);
 });
+
+/** PlayLists */
+app.get("/api/v1/me/playlists", ensureAuthenticated, async function (req, res) {
+  const data = await PlayListsDAO.getPlayListsByUser(token, 50, 0);
+  res.send({
+    status: 200,
+    data: data.data,
+  });
+});
+
+/** Player */
+app.get(
+  "/api/v1/me/player/currently-playing",
+  ensureAuthenticated,
+  async function (req, res) {
+    const data = await PlayerDAO.getPlayerCurrentlyPlaying(token);
+    res.send({
+      status: 200,
+      data: data.data,
+    });
+  }
+);
+
+app.get(
+  "/api/v1/me/player/recently-played",
+  ensureAuthenticated,
+  async function (req: any, res) {
+    const { limit, before, after } = req.query;
+    const data = await PlayerDAO.getPlayerRecentlyPlayed(
+      token,
+      limit,
+      before,
+      after
+    );
+    res.send({
+      status: 200,
+      data: data.data,
+    });
+  }
+);
+
+/** Tracks */
+app.get(
+  "/api/v1/tracks/:id",
+  ensureAuthenticated,
+  async function (req: any, res) {
+    const { id } = req.params;
+    const data = await TracksDAO.getTrackById(token, id);
+    res.send({
+      status: 200,
+      data: data.data,
+    });
+  }
+);
 
 function ensureAuthenticated(req: any, res: any, next: any) {
   console.log("=> isAuthenticated", req.isAuthenticated());

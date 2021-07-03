@@ -1,11 +1,11 @@
-export interface IMenu {
+export interface Menu {
   id: string;
   itemName: string | any;
   isSeparator?: boolean;
   link?: string;
 }
 
-export interface IDataUser {
+export interface DataUser {
   country: string;
   displayName: string;
   email: string;
@@ -16,12 +16,12 @@ export interface IDataUser {
   profileUrl: string;
 }
 
-export interface IUser {
-  data: IDataUser | undefined;
+export interface User {
+  data: DataUser | undefined;
   isFetching: boolean;
 }
 
-export interface IUserPayload {
+export interface UserPayload {
   type: string;
   payload?: any;
 }

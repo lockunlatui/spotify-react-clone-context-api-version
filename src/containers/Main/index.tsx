@@ -1,7 +1,9 @@
 import Styles from "./main.module.scss";
 import { FormattedMessage } from "react-intl";
 
-import SpotifyPremiumImg from "../../assets/images/spotifyPremium.png";
+/** Utils */
+import { Images } from "@utils/index";
+
 /** Components */
 import { Typography, Button } from "@components/index";
 
@@ -37,7 +39,7 @@ const Main = () => {
             </div>
           </article>
           <div className={Styles.imgSP}>
-            <img width="500" height="500" src={SpotifyPremiumImg} alt="Spotify Premium" />
+            <img width="500" height="500" src={Images["SPOTIFYPREMIUM"]} alt="Spotify Premium" />
           </div>
         </div>
       </section>

@@ -1,20 +1,29 @@
+import { FormattedMessage } from "react-intl";
+
+/** Utils */
 import { Images } from "@utils/index";
 
+/** Components */
 import { Typography, Button } from "@components/index";
+
+/** Styles */
 import Styles from "./notFound.module.scss";
+
 const NotFound = () => {
   return (
     <div className={Styles.container}>
       <div className={Styles.notFoundContainer}>
         <div className={Styles.notFoundContent}>
           <Typography className={Styles.pageNotFound} variant="h5">
-            Trang này không còn tồn tại.
+            <FormattedMessage id="notFound.title" />
           </Typography>
           <Typography className={Styles.desc} variant="subtitle1">
-            We couldn’t find the page you were looking for. Maybe our FAQ or
-            Community can help?
+            <FormattedMessage id="notFound.desc" />
           </Typography>
-          <Button className={Styles.backBtn}>Quay Lại</Button>
+          <Button className={Styles.backBtn}>
+            {" "}
+            <FormattedMessage id="notFound.button.goBack" />
+          </Button>
         </div>
         <div className={Styles.notFoundImage}>
           <img alt="Record" className={Styles.record} src={Images["RECORD"]} />

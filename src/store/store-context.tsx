@@ -1,11 +1,11 @@
 import { createContext } from "react";
-import { IAppState } from "@interfaces/App";
+import { AppState } from "@interfaces/App";
 
 import { headerReducer } from "@store/reducers/index";
 
 export const StoreContext: any = createContext(null);
 
-export const initialState: IAppState | any = {
+export const initialState: AppState | any = {
   header: {
     user: {
       data: {},
@@ -17,7 +17,7 @@ export const initialState: IAppState | any = {
 };
 
 export const reducer = (
-  state: IAppState | any,
+  state: AppState | any,
   action: { type: string; payload: any }
 ) => {
   const stateHeader = headerReducer(state, action);

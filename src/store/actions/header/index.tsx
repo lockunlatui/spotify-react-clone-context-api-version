@@ -13,7 +13,7 @@ import {
 import UserService from "@services/userService";
 
 /** Interfaces */
-import { IUser, IUserPayload } from "@interfaces/Header";
+import { User, UserPayload } from "@interfaces/Header";
 
 /** ================================================== */
 
@@ -21,7 +21,7 @@ export const getUserFetching = () => ({
   type: GET_USER_FETCHING,
 });
 
-export const getUserFetched = (payload: IUser) => ({
+export const getUserFetched = (payload: User) => ({
   type: GET_USER_FETCHED,
   payload,
 });
@@ -30,7 +30,7 @@ export const getUserError = () => ({
   type: GET_USER_ERROR,
 });
 
-export const getUser = (dispatch: (arg0: IUserPayload) => void) => {
+export const getUser = (dispatch: (arg0: UserPayload) => void) => {
   dispatch(getUserFetching());
   UserService.getUser()
     .then((res: AxiosResponse<any>) => {

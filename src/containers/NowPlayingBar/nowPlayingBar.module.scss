@@ -1,0 +1,49 @@
+@import 'global';
+
+.container {
+  grid-area: nowPlayingBar;
+  z-index: 4;
+  background-color: $blackLight;
+  width: 100%;
+  color: $white;
+
+  .nowPlayingBarContainer {
+    @include flex-column;
+    height: auto;
+    padding: 10px;
+
+    div {
+      @include flex;
+      @include paddingShort(0px, 16px);
+      .left {
+        width: 30%;
+
+        img {
+          @include widthHeight(56px, 56px);
+        }
+
+        .track {
+          @include flex-column;
+          justify-content: space-evenly;
+
+          .nameTrack {
+            text-transform: capitalize;
+          }
+
+          .artistTrack {
+            text-transform: capitalize;
+            font-weight: $regularFont;
+          }
+        }
+      }
+
+      .middle {
+        width: 40%;
+      }
+
+      .right {
+        width: 30%;
+      }
+    }
+  }
+}

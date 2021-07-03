@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 import { UsersDAO } from "./dao";
 
-import app from "../server";
+import app from "./server";
 dotenv.config();
 
 const MongoClient = mongodb.MongoClient;

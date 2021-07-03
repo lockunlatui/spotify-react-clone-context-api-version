@@ -3,7 +3,7 @@ export interface User {
   isFetching: boolean;
 }
 
-export interface IAppState {
+export interface AppState {
   header: {
     user: User;
     language: string;

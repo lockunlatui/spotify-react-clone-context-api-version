@@ -14,9 +14,25 @@ import enFooter from "./footer/en.json";
 import viIntroductionMain from "./introductionMain/vi.json";
 import enIntroductionMain from "./introductionMain/en.json";
 
+/** Not Found */
+import viNotFound from "./notFound/vi.json";
+import enNotFound from "./notFound/en.json";
+
 const translations: any = {
-  vi: { ...viHeader, ...viMain, ...viFooter, ...viIntroductionMain },
-  en: { ...enHeader, ...enMain, ...enFooter, ...enIntroductionMain },
+  vi: {
+    ...viHeader,
+    ...viMain,
+    ...viFooter,
+    ...viIntroductionMain,
+    ...viNotFound,
+  },
+  en: {
+    ...enHeader,
+    ...enMain,
+    ...enFooter,
+    ...enIntroductionMain,
+    ...enNotFound,
+  },
 };
 
 export default translations;

@@ -10,12 +10,12 @@ import Styles from "./routes.module.scss";
 const Main = lazy(() => import("@containers/Main"));
 const IntroductionMain = lazy(() => import("@containers/IntroductionMain"));
 const NotFound = lazy(() => import("@containers/NotFound"));
-const OpenWebPlayer = lazy(() => import("@containers/OpenWebPlayer"))
-const Header = lazy(() => import("@containers/Header"))
-const Footer = lazy(() => import("@containers/Footer"))
-const SideBar = lazy(() => import("@containers/SideBar"))
-const TopNav = lazy(() => import("@containers/TopNav"))
-
+const OpenWebPlayer = lazy(() => import("@containers/OpenWebPlayer"));
+const Header = lazy(() => import("@containers/Header"));
+const Footer = lazy(() => import("@containers/Footer"));
+const SideBar = lazy(() => import("@containers/SideBar"));
+const TopNav = lazy(() => import("@containers/TopNav"));
+const NowPlayingBar = lazy(() => import("@containers/NowPlayingBar"));
 
 const CustomRoutes = () => {
   const location = useLocation();
@@ -90,17 +90,18 @@ const CustomRoutes = () => {
   }
   return (
     <Suspense fallback={<div>Loading...</div>}>
-    <div className={Styles.openPlayerContainer}>
-      <SideBar />
-      <TopNav />
-      <Switch>
-        <PrivateComponent
-          auth={Boolean(isAuthenticated)}
-          path={Routes.Open}
-          component={OpenWebPlayer}
-        />
-      </Switch>
-    </div>
+      <div className={Styles.openPlayerContainer}>
+        <SideBar />
+        <TopNav />
+        <Switch>
+          <PrivateComponent
+            auth={Boolean(isAuthenticated)}
+            path={Routes.Open}
+            component={OpenWebPlayer}
+          />
+        </Switch>
+        <NowPlayingBar />
+      </div>
     </Suspense>
   );
 };
