@@ -57,7 +57,7 @@ const SideBar = () => {
       </ul>
       <div className={Styles.line} />
       <ul className={Styles.playlists}>
-        {playLists.items.map((item: any) => {
+        {playLists?.items?.map((item: any) => {
           return (
             <li key={item.id}>
               <Typography variant="subtitle1">{item.name}</Typography>

@@ -1,3 +1,4 @@
 import Images from "./Images";
+import { createAsyncTypes } from "./Actions";
 
-export { Images };
+export { Images, createAsyncTypes };

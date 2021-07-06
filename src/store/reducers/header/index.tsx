@@ -9,7 +9,7 @@ import {
   GET_USER_ERROR,
   SET_TOKEN,
   CHANGE_LANGUAGE,
-} from "@store/actionTypes";
+} from "@store/actionTypes/header";
 
 const headerReducer = (state: AppState, action: UserPayload) => {
   switch (action.type) {

@@ -8,8 +8,8 @@ export enum Routes {
   Open = "/open",
   Search = "/search",
   YourLibrary = "/your-library",
-  PlayList = '/playlist',
-  LikedSong = '/liked-song'
+  PlayList = "/playlist",
+  LikedSong = "/liked-song",
 }
 
 export enum ApiRoutes {

@@ -5,7 +5,7 @@ import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /** Actions */
-import { getUser } from "@store/actions/index";
+import { getUser } from "@store/actions/header";
 
 /** Interfaces */
 import { Menu } from "@interfaces/Header";

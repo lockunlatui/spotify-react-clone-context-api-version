@@ -7,7 +7,7 @@ import {
   GET_USER_ERROR,
   SET_TOKEN,
   CHANGE_LANGUAGE,
-} from "@store/actionTypes/index";
+} from "@store/actionTypes/header";
 
 /** Services */
 import UserService from "@services/userService";

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { AppState } from "@interfaces/App";
 
-import { headerReducer } from "@store/reducers/index";
+import { headerReducer, nowPlayingBarReducer } from "@store/reducers/index";
 
 export const StoreContext: any = createContext(null);
 
@@ -14,6 +14,20 @@ export const initialState: AppState | any = {
     language: "en",
     token: "",
   },
+  nowPlayingBar: {
+    playerCurrentlyPlayed: {
+      isFetching: true,
+      data: {},
+    },
+    playerCurrentlyPlaying: {
+      isFetching: true,
+      data: {},
+    },
+    track: {
+      isFetching: true,
+      data: {},
+    },
+  },
 };
 
 export const reducer = (
@@ -21,10 +35,12 @@ export const reducer = (
   action: { type: string; payload: any }
 ) => {
   const stateHeader = headerReducer(state, action);
+  const stateNowPlayingBar = nowPlayingBarReducer(state, action);
   const rootState = () => {
     return {
       ...state,
       ...stateHeader,
+      ...stateNowPlayingBar,
     };
   };
   return rootState();

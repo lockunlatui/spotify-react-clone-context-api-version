@@ -1,3 +1,4 @@
 import headerReducer from "./header";
+import nowPlayingBarReducer from "./nowPlayingBar";
 
-export { headerReducer };
+export { headerReducer, nowPlayingBarReducer };

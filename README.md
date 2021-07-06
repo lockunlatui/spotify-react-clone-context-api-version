@@ -9,6 +9,16 @@ Spotify React Clone is a using ReactJS library to creating a web single page.
 
 - Login SSO with Spotify credentials.
 
+## Screenshot
+
+## Home when page don't have authenticate
+
+<img src="./screenshot/home-not-authenticate.png">
+
+## Home when page have authenticate
+
+<img src="./screenshot/home.png">
+
 ## Install
 
 ### Node
@@ -183,13 +193,3 @@ Start Node app:
 ```
 npm run start:api
 ```
-
-## Screenshot
-
-## Home when page don't have authenticate
-
-<img src="./screenshot/home-not-authenticate.png">
-
-## Home when page have authenticate
-
-<img src="./screenshot/home.png">

@@ -9,4 +9,18 @@ export interface AppState {
     language: string;
     token: string;
   };
+  nowPlayingBar: {
+    playerCurrentlyPlayed: {
+      isFetching: boolean;
+      data: any;
+    };
+    playerCurrentlyPlaying: {
+      isFetching: boolean;
+      data: any;
+    };
+    track: {
+      isFetching: boolean;
+      data: any;
+    };
+  };
 }

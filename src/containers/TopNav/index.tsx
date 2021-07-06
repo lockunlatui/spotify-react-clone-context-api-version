@@ -16,7 +16,7 @@ import { Colors } from "@enums/index";
 import { StoreContext } from "@store/store-context";
 
 /** Actions */
-import { getUser } from "@store/actions/index";
+import { getUser } from "@store/actions/header";
 
 const TopNav = () => {
   const [state, dispatch] = useContext(StoreContext);

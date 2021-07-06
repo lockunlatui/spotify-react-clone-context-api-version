@@ -41,6 +41,8 @@ const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, REDIRECT_URL_CLIENT_REACT } =
 
 const app = express();
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded());
 
 let userProfile: any;
 let token: any;
@@ -93,7 +95,20 @@ app.get(
       "playlist-read-private",
       "user-read-currently-playing",
       "user-read-playback-state",
-      "user-read-recently-played"
+      "user-read-recently-played",
+      "user-modify-playback-state",
+      "streaming",
+      "user-library-read",
+      "user-read-playback-position",
+      "user-top-read",
+      "playlist-modify-public",
+      "ugc-image-upload",
+      "user-follow-modify",
+      "user-library-modify",
+      "playlist-read-collaborative",
+      "playlist-modify-private",
+      "user-follow-read",
+      "app-remote-control"
     ],
   })
 );
@@ -105,8 +120,8 @@ app.get(
   }
 );
 
-app.get("/api/v1/me", ensureAuthenticated, async function (req, res, next) {
-  if (req.isAuthenticated()) {
+app.get("/api/v1/me", ensureAuthenticated, async function (req, res) {
+  try {
     const user = await UsersDAO.getUser(userProfile.id);
     const data = {
       country: user?.country,
@@ -117,12 +132,11 @@ app.get("/api/v1/me", ensureAuthenticated, async function (req, res, next) {
       photo: user?.photos[0]?.value,
       product: user?.product,
       profileUrl: user?.profileUrl,
+      token: token,
     };
     res.send(data).status(200);
-  } else {
-    res.send({
-      status: 401,
-    });
+  } catch (err) {
+    res.status(401).send();
   }
 });
 
@@ -161,16 +175,44 @@ app.get(
   "/api/v1/me/player/recently-played",
   ensureAuthenticated,
   async function (req: any, res) {
-    const { limit, before, after } = req.query;
-    const data = await PlayerDAO.getPlayerRecentlyPlayed(
-      token,
-      limit,
-      before,
-      after
-    );
+    const { limit } = req.query;
+    const data = await PlayerDAO.getPlayerRecentlyPlayed(token, limit);
     res.send({
       status: 200,
       data: data.data,
+    });
+  }
+);
+
+app.put(
+  "/api/v1/me/player/play/:deviceId",
+  ensureAuthenticated,
+  async function (req: any, res) {
+    const { deviceId } = req.params;
+    const { spotifyUri, position } = req.body;
+    const data = await PlayerDAO.putStartAndResume(token, deviceId, spotifyUri, position);
+    if(data.status === 204) {
+      res.send({
+        status: 204,
+      });
+    } else {
+      res.send({
+        status: data.status,
+      });
+    }
+   
+  }
+);
+
+app.put(
+  "/api/v1/me/player/pause/:deviceId",
+  ensureAuthenticated,
+  async function (req: any, res) {
+    const { deviceId } = req.params;
+    const data = await PlayerDAO.putPause(token, deviceId);
+    res.send({
+      status: 200,
+      data: data,
     });
   }
 );
@@ -191,11 +233,16 @@ app.get(
 
 function ensureAuthenticated(req: any, res: any, next: any) {
   console.log("=> isAuthenticated", req.isAuthenticated());
-  if (req.isAuthenticated()) {
+  try {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.status(401);
+    return next();
+  } catch (err) {
+    res.status(401);
     return next();
   }
-  res.status(401);
-  return next();
 }
 
 export default app;

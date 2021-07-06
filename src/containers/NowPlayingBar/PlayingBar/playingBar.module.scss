@@ -1,0 +1,177 @@
+@import "global";
+@import "fonts";
+
+.nowPlayingBarContainer {
+  @include flex-column;
+  height: auto;
+  padding: 10px;
+
+  div {
+    @include flex;
+    @include paddingShort(0px, 16px);
+    .left {
+      width: 30%;
+
+      img {
+        @include widthHeight(56px, 56px);
+      }
+
+      .track {
+        @include flex-column;
+        justify-content: space-evenly;
+
+        .nameTrack {
+          text-transform: capitalize;
+          text-align: left;
+        }
+
+        .artistTrack {
+          text-transform: capitalize;
+          font-weight: $regularFont;
+        }
+      }
+
+      .utils {
+        @include flex;
+        align-items: center;
+        color: $gray;
+        svg {
+          @include widthHeight(16px, 16px);
+          color: inherit;
+          cursor: pointer;
+          margin-right: 15px;
+          &:hover {
+            color: $white;
+          }
+        }
+      }
+    }
+
+    .middle {
+      width: 40%;
+      @include flex-column;
+      align-items: center;
+
+      .controls {
+        @include flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        color: $gray;
+
+        svg {
+          @include widthHeight(16px, 16px);
+          cursor: pointer;
+          margin: 0px 10px 0px;
+          &:hover {
+            color: $white;
+          }
+
+          &:nth-of-type(3) {
+            @include widthHeight(32px, 32px);
+            color: $white;
+          }
+        }
+      }
+
+      .playBar {
+        @include flex;
+        width: 100%;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: $gray;
+
+        .durationTime {
+          width: 50px;
+        }
+
+        .progressBar {
+          @include widthHeight(100%, 4px);
+          @include flex;
+          align-items: center;
+          background-color: $gray;
+          border-radius: 5px;
+          margin: 0px 10px 0px;
+        }
+      }
+    }
+
+    .right {
+      width: 30%;
+      color: $gray;
+      @include flex;
+      justify-content: flex-end;
+
+      button {
+        background-color: inherit;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+
+        &:hover {
+          color: $green;
+        }
+
+        svg {
+          fill: currentcolor;
+        }
+      }
+
+      .iconLyrics {
+        svg {
+          fill: currentcolor;
+        }
+      }
+
+      .iconQueue {
+        &:before {
+          content: "";
+          font-size: 16px;
+          transform: translateX(-1px);
+        }
+      }
+
+      .iconDevices {
+        &:before {
+          content: "";
+          font-size: 16px;
+        }
+      }
+
+      .volumeContainer {
+        display: flex;
+        flex: 0 1 125px;
+        align-items: center;
+
+        button {
+          background-color: inherit;
+          border: none;
+          color: inherit;
+          cursor: pointer;
+          @include flex;
+
+          &:hover {
+            color: $green;
+          }
+        }
+
+        svg {
+          fill: currentcolor;
+        }
+
+        .progressBarContainerVolume {
+          cursor: pointer;
+          @include widthHeight(100%, 12px);
+          padding: 0px;
+          @include flex;
+          align-items: center;
+          .progressBarVolume {
+            @include widthHeight(100%, 4px);
+            background-color: $grayLight;
+          }
+        }
+      }
+    }
+  }
+}

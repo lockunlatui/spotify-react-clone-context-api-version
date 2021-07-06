@@ -1,10 +1,5 @@
-import {
-  faHome,
-  faSearch,
-  faBook,
-  faPlusSquare,
-  faHeart,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHome, faSearch, faBook } from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare, faHeart } from "@fortawesome/free-regular-svg-icons";
 
 /** Enums */
 import { Routes } from "@enums/routes";
