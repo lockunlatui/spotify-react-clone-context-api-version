@@ -23,6 +23,12 @@
         .nameTrack {
           text-transform: capitalize;
           text-align: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          height: 35px;
+          width: 90%;
+          @include flex;
+          align-items: flex-start;
         }
 
         .artistTrack {
@@ -83,7 +89,7 @@
         color: $gray;
 
         .durationTime {
-          width: 50px;
+          width: 100px;
         }
 
         .progressBar {

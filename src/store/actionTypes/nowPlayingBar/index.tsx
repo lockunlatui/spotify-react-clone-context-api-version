@@ -14,3 +14,7 @@ export const GET_PLAYER_CURRENTLY_PLAYING: any = createAsyncTypes(
 export const GET_TRACK_BY_ID: any = createAsyncTypes(
   `${PREFIX}/GET_TRACK_BY_ID`
 );
+
+export const PUT_PLAY: any = createAsyncTypes(`${PREFIX}/PUT_PLAY`);
+
+export const PUT_PAUSE: any = createAsyncTypes(`${PREFIX}/PUT_PAUSE`);

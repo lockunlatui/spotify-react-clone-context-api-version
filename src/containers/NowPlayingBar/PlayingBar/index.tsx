@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faImage } from "@fortawesome/free-regular-svg-icons";
+import { useContext, useEffect, useState } from "react";
 import {
   faRandom,
   faStepBackward,
@@ -15,25 +16,22 @@ import c from "classnames";
 import { StoreContext } from "@store/store-context";
 
 /** Actions */
-import { getPlayerCurrentlyPlaying } from "@store/actions/nowPlayingBar";
+import {
+  getPlayerCurrentlyPlaying,
+  putPlay,
+  putPause,
+} from "@store/actions/nowPlayingBar";
+
+/** Enums */
+import { Colors, LocalStorages, Times, Numbers } from "@enums/index";
 
 /** Styles */
 import Styles from "./playingBar.module.scss";
-import { useContext, useEffect, useState } from "react";
-import axios from "@services/interceptor";
-import { Colors } from "@enums/colors";
 
-declare global {
-  interface Window {
-    onSpotifyWebPlaybackSDKReady: any;
-    Spotify: any;
-  }
-}
-
-let timeInterval: any;
+let timeInterval: ReturnType<typeof setInterval>;
 
 window.onSpotifyWebPlaybackSDKReady = () => {
-  const user: any = localStorage.getItem("user");
+  const user: string | any = localStorage.getItem(LocalStorages.User);
   const token = JSON.parse(user).token;
 
   const player = new window.Spotify.Player({
@@ -41,7 +39,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     getOAuthToken: (callback: any) => {
       callback(token);
     },
-    volume: 0.5,
+    volume: Numbers.ZeroPointFive,
   });
   return player;
 };
@@ -50,51 +48,53 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
   const [state, dispatch] = useContext(StoreContext);
   const { playerCurrentlyPlaying } = state.nowPlayingBar;
   const [currentTime, setCurrentTime] = useState("0:00");
-  const [percentTime, setPercentTime] = useState(0);
+  const [percentTime, setPercentTime] = useState(Numbers.Zero);
+
 
   const track = isPlaying
     ? {
-        image: playingMusicData?.data?.album?.images[0].url,
+        image: playingMusicData?.data?.album?.images[Numbers.Zero].url,
         trackName: playingMusicData?.data?.name,
-        artistName: playingMusicData?.data?.artists[0]?.name,
+        artistName: playingMusicData?.data?.artists[Numbers.Zero]?.name,
         durationTime: playingMusicData?.data?.duration_ms,
         uri: playingMusicData?.data?.album?.uri,
       }
     : {
-        image: playingMusicData?.data?.items[0]?.track?.album?.images[0].url,
-        trackName: playingMusicData?.data?.items[0]?.track?.name,
-        artistName: playingMusicData?.data?.items[0]?.track?.artists[0]?.name,
-        durationTime: playingMusicData?.data?.items[0]?.track?.duration_ms,
-        uri: playingMusicData?.data?.items[0]?.track?.uri,
-        position: playingMusicData?.data?.items[0]?.track?.track_number,
+        image:
+          playingMusicData?.data?.items[Numbers.Zero]?.track?.album?.images[
+            Numbers.Zero
+          ].url,
+        trackName: playingMusicData?.data?.items[Numbers.Zero]?.track?.name,
+        artistName:
+          playingMusicData?.data?.items[Numbers.Zero]?.track?.artists[
+            Numbers.Zero
+          ]?.name,
+        durationTime:
+          playingMusicData?.data?.items[Numbers.Zero]?.track?.duration_ms,
+        uri: playingMusicData?.data?.items[Numbers.Zero]?.track?.uri,
+        position:
+          playingMusicData?.data?.items[Numbers.Zero]?.track?.track_number,
       };
 
   useEffect(() => {
     if (Boolean(playerCurrentlyPlaying?.data?.is_playing)) {
-      console.log("true");
       let countTime = playerCurrentlyPlaying?.data?.progress_ms;
-
+      const durationTime = playerCurrentlyPlaying?.data?.item?.duration_ms;
       timeInterval = setInterval(() => {
-        console.log(
-          "================",
-          countTime <= playerCurrentlyPlaying?.data?.progress_ms
-        );
-        if (countTime <= playerCurrentlyPlaying?.data?.item?.duration_ms) {
-          countTime += 1000;
-          setPercentTime(
-            (countTime / playerCurrentlyPlaying?.data?.item?.duration_ms) * 100
-          );
+        if (countTime <= durationTime) {
+          countTime += Times.OneMillisecond;
+          setPercentTime((countTime / durationTime) * Numbers.OneHundred);
           setCurrentTime(getDurationTime(countTime));
         } else {
           getPlayerCurrentlyPlaying(dispatch);
-          setPercentTime(0);
-          setCurrentTime(getDurationTime(0));
+          setPercentTime(Numbers.Zero);
+          setCurrentTime(getDurationTime(Numbers.Zero));
           clearInterval(timeInterval);
         }
-      }, 1000);
+      }, Times.OneMillisecond);
     } else {
-      setPercentTime(0);
-      setCurrentTime(getDurationTime(0));
+      setPercentTime(Numbers.Zero);
+      setCurrentTime(getDurationTime(Numbers.Zero));
       clearInterval(timeInterval);
     }
     return () => {
@@ -102,30 +102,28 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
     };
   }, [dispatch, playerCurrentlyPlaying]);
 
-  const getDurationTime = (duration: number) => {
-    const minutes = Math.floor(duration / 60000);
-    const seconds: any = ((duration % 60000) / 1000).toFixed(0);
-    return `${minutes}: ${seconds < 10 ? "0" : ""} ${seconds}`;
+  const getDurationTime = (duration: number = 4581758) => {
+    const minutes = Math.floor(
+      duration / (Times.OneMillisecond * Times.OneMinute)
+    );
+    const seconds: any = (
+      (duration % (Times.OneMillisecond * Times.OneSecond)) /
+      Times.OneMillisecond
+    ).toFixed(Numbers.Zero);
+    return `${minutes}: ${
+      seconds < Numbers.Ten ? Numbers.Zero : ""
+    } ${seconds}`;
   };
 
   const play = () => {
     const player: any = window.onSpotifyWebPlaybackSDKReady();
     player.addListener("ready", ({ device_id }: any) => {
-      localStorage.setItem("device_id", device_id);
-      axios
-        .put(`/me/player/play/${device_id}`, {
-          spotifyUri: track.uri,
-          position: track.position,
-        })
-        .then((response) => {
-          console.log("response", response);
-          if (response?.data?.status === 204) {
-            getPlayerCurrentlyPlaying(dispatch);
-          }
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
+      localStorage.setItem(LocalStorages.DeviceId, device_id);
+      const body = {
+        spotifyUri: track.uri,
+        position: track.position,
+      };
+      putPlay(dispatch, device_id, body);
     });
     player.connect().then((success: any) => {
       if (success) {
@@ -138,15 +136,8 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
   const pause = () => {
     const player: any = window.onSpotifyWebPlaybackSDKReady();
     player.pause().then(() => {
-      const device_id = localStorage.getItem("device_id");
-      axios
-        .put(`/me/player/pause/${device_id}`)
-        .then((response) => {
-          getPlayerCurrentlyPlaying(dispatch);
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
+      const device_id = localStorage.getItem(LocalStorages.DeviceId);
+      putPause(dispatch, device_id);
     });
   };
 

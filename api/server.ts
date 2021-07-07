@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
 import { Strategy } from "passport-spotify";
-import { UsersDAO, PlayListsDAO, PlayerDAO, TracksDAO } from "./dao";
+import { UsersDAO, PlayListsDAO, PlayerDAO, TracksDAO, AlbumDAO } from "./dao";
+import axios from "axios";
 dotenv.config();
 
 export interface Profile {
@@ -81,7 +82,16 @@ passport.deserializeUser(function (obj: any, done) {
   done(null, obj);
 });
 
-app.use(session({ secret: "whoami", resave: true, saveUninitialized: true }));
+app.use(
+  session({
+    secret: "whoami",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 10 * 24 * 365 * 60 * 1000,
+    },
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -108,7 +118,7 @@ app.get(
       "playlist-read-collaborative",
       "playlist-modify-private",
       "user-follow-read",
-      "app-remote-control"
+      "app-remote-control",
     ],
   })
 );
@@ -122,6 +132,9 @@ app.get(
 
 app.get("/api/v1/me", ensureAuthenticated, async function (req, res) {
   try {
+    console.log("===========================TOKEN===========================");
+    console.log(token);
+    console.log("===========================TOKEN===========================");
     const user = await UsersDAO.getUser(userProfile.id);
     const data = {
       country: user?.country,
@@ -163,11 +176,17 @@ app.get(
   "/api/v1/me/player/currently-playing",
   ensureAuthenticated,
   async function (req, res) {
-    const data = await PlayerDAO.getPlayerCurrentlyPlaying(token);
-    res.send({
-      status: 200,
-      data: data.data,
-    });
+    try {
+      const data = await PlayerDAO.getPlayerCurrentlyPlaying(token);
+      res.send({
+        status: 200,
+        data: data.data,
+      });
+    } catch (err) {
+      res.send({
+        data: err,
+      });
+    }
   }
 );
 
@@ -175,12 +194,18 @@ app.get(
   "/api/v1/me/player/recently-played",
   ensureAuthenticated,
   async function (req: any, res) {
-    const { limit } = req.query;
-    const data = await PlayerDAO.getPlayerRecentlyPlayed(token, limit);
-    res.send({
-      status: 200,
-      data: data.data,
-    });
+    try {
+      const { limit } = req.query;
+      const data = await PlayerDAO.getPlayerRecentlyPlayed(token, limit);
+      res.send({
+        status: 200,
+        data: data.data,
+      });
+    } catch (err) {
+      res.send({
+        data: err,
+      });
+    }
   }
 );
 
@@ -190,8 +215,13 @@ app.put(
   async function (req: any, res) {
     const { deviceId } = req.params;
     const { spotifyUri, position } = req.body;
-    const data = await PlayerDAO.putStartAndResume(token, deviceId, spotifyUri, position);
-    if(data.status === 204) {
+    const data = await PlayerDAO.putStartAndResume(
+      token,
+      deviceId,
+      spotifyUri,
+      position
+    );
+    if (data.status === 204) {
       res.send({
         status: 204,
       });
@@ -200,7 +230,6 @@ app.put(
         status: data.status,
       });
     }
-   
   }
 );
 
@@ -208,12 +237,18 @@ app.put(
   "/api/v1/me/player/pause/:deviceId",
   ensureAuthenticated,
   async function (req: any, res) {
-    const { deviceId } = req.params;
-    const data = await PlayerDAO.putPause(token, deviceId);
-    res.send({
-      status: 200,
-      data: data,
-    });
+    try {
+      const { deviceId } = req.params;
+      const data = await PlayerDAO.putPause(token, deviceId);
+      res.send({
+        status: 200,
+        data: data,
+      });
+    } catch (err) {
+      res.send({
+        data: err,
+      });
+    }
   }
 );
 
@@ -222,12 +257,38 @@ app.get(
   "/api/v1/tracks/:id",
   ensureAuthenticated,
   async function (req: any, res) {
-    const { id } = req.params;
-    const data = await TracksDAO.getTrackById(token, id);
-    res.send({
-      status: 200,
-      data: data.data,
-    });
+    try {
+      const { id } = req.params;
+      const data = await TracksDAO.getTrackById(token, id);
+      res.send({
+        status: 200,
+        data: data.data,
+      });
+    } catch (err) {
+      res.send({
+        data: err,
+      });
+    }
+  }
+);
+
+/** Album */
+app.get(
+  "v1/albums/:id/tracks",
+  ensureAuthenticated,
+  async function (req: any, res) {
+    try {
+      const { id } = req.params;
+      const data = await AlbumDAO.getAnAlbumsTracks(token, id);
+      res.send({
+        status: 200,
+        data: data.data,
+      });
+    } catch (err) {
+      res.send({
+        data: err,
+      });
+    }
   }
 );
 

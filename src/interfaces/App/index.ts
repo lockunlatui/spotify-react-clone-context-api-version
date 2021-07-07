@@ -22,5 +22,8 @@ export interface AppState {
       isFetching: boolean;
       data: any;
     };
+    play: {
+      isFetching: boolean;
+    };
   };
 }

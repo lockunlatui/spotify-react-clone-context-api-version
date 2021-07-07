@@ -7,6 +7,13 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 serviceWorkerRegistration.register();
 
+declare global {
+  interface Window {
+    onSpotifyWebPlaybackSDKReady: any;
+    Spotify: any;
+  }
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

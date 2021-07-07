@@ -5,13 +5,18 @@ import {
   GET_PLAYER_CURRENTLY_PLAYED,
   GET_PLAYER_CURRENTLY_PLAYING,
   GET_TRACK_BY_ID,
+  PUT_PLAY,
+  PUT_PAUSE,
 } from "@store/actionTypes/nowPlayingBar";
 
 /** Services */
 import PlayerService from "@services/playerService";
 import TracksService from "@services/tracksService";
 
-/** ================================================== */
+/** Interfaces */
+import { PutPlayBody } from "@interfaces/NowPlayingBar";
+
+/** =======================GET_PLAYER_CURRENTLY_PLAYED=========================== */
 
 export const getPlayerCurrentlyPlayedFetching = () => ({
   type: GET_PLAYER_CURRENTLY_PLAYED.FETCHING,
@@ -28,7 +33,7 @@ export const getPlayerCurrentlyPlayedError = () => ({
 
 export const getPlayerCurrentlyPlayed = (dispatch: (arg0: any) => void) => {
   dispatch(getPlayerCurrentlyPlayedFetching());
-  PlayerService.getPlayerCurrentlyPlayed(1)
+  PlayerService.getPlayerCurrentlyPlayed(50)
     .then((res: AxiosResponse<any>) => {
       dispatch(getPlayerCurrentlyPlayedFetched(res.data.data));
     })
@@ -37,7 +42,7 @@ export const getPlayerCurrentlyPlayed = (dispatch: (arg0: any) => void) => {
     });
 };
 
-/** ================================================== */
+/** ======================GET_PLAYER_CURRENTLY_PLAYING============================ */
 
 export const getPlayerCurrentlyPlayingFetching = () => ({
   type: GET_PLAYER_CURRENTLY_PLAYING.FETCHING,
@@ -68,7 +73,7 @@ export const getPlayerCurrentlyPlaying = (dispatch: (arg0: any) => void) => {
     });
 };
 
-/** ================================================== */
+/** ======================GET_TRACK_BY_ID============================ */
 
 export const getTrackByIdFetching = () => ({
   type: GET_TRACK_BY_ID.FETCHING,
@@ -94,5 +99,66 @@ export const getTrackByIdPlaying = (
     })
     .catch((_) => {
       dispatch(getTrackByIdError());
+    });
+};
+
+/** ======================PUT_PLAY============================ */
+
+export const putPlayFetching = () => ({
+  type: PUT_PLAY.FETCHING,
+});
+
+export const putPlayFetched = () => ({
+  type: PUT_PLAY.FETCHED,
+});
+
+export const putPlayError = () => ({
+  type: PUT_PLAY.ERROR,
+});
+
+export const putPlay = (
+  dispatch: (arg0: any) => void,
+  deviceId: string,
+  body: PutPlayBody
+) => {
+  dispatch(putPlayFetching());
+  PlayerService.putPlayerPlay(deviceId, body)
+    .then((res: AxiosResponse<any>) => {
+      dispatch(putPlayFetched());
+      if (res?.data?.status === 204) {
+        getPlayerCurrentlyPlaying(dispatch);
+      }
+    })
+    .catch((_) => {
+      dispatch(putPlayError());
+    });
+};
+
+/** ======================PUT_PAUSE============================ */
+
+export const putPauseFetching = () => ({
+  type: PUT_PAUSE.FETCHING,
+});
+
+export const putPauseFetched = () => ({
+  type: PUT_PAUSE.FETCHED,
+});
+
+export const putPauseError = () => ({
+  type: PUT_PAUSE.ERROR,
+});
+
+export const putPause = (
+  dispatch: (arg0: any) => void,
+  deviceId: string | any
+) => {
+  dispatch(putPauseFetching());
+  PlayerService.putPlayerPause(deviceId)
+    .then((res: AxiosResponse<any>) => {
+      dispatch(putPauseFetched());
+      getPlayerCurrentlyPlaying(dispatch);
+    })
+    .catch((_) => {
+      dispatch(putPauseError());
     });
 };

@@ -1,6 +1,13 @@
 import { createContext } from "react";
+
+/** Interfaces */
 import { AppState } from "@interfaces/App";
 
+/** Enums */
+import { Languages } from '@enums/languages';
+
+
+/** Reducers */
 import { headerReducer, nowPlayingBarReducer } from "@store/reducers/index";
 
 export const StoreContext: any = createContext(null);
@@ -11,7 +18,7 @@ export const initialState: AppState | any = {
       data: {},
       isFetching: false,
     },
-    language: "en",
+    language: Languages.English,
     token: "",
   },
   nowPlayingBar: {
@@ -24,6 +31,10 @@ export const initialState: AppState | any = {
       data: {},
     },
     track: {
+      isFetching: true,
+      data: {},
+    },
+    play: {
       isFetching: true,
       data: {},
     },

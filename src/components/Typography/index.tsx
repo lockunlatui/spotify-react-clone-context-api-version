@@ -6,6 +6,7 @@ type ITypographyProps = {
   className?: string;
   style?: any;
   children?: any;
+  title?: string;
 };
 
 const Typography = ({
@@ -13,42 +14,61 @@ const Typography = ({
   className,
   style,
   children,
+  title,
 }: ITypographyProps) => {
   const renderTypography = () => {
     switch (variant) {
       case "caption":
         return (
-          <span style={style} className={c(Styles.caption, className)}>
+          <span
+            title={title}
+            style={style}
+            className={c(Styles.caption, className)}
+          >
             {children}
           </span>
         );
       case "body2":
         return (
-          <span style={style} className={c(Styles.body2, className)}>
+          <span
+            title={title}
+            style={style}
+            className={c(Styles.body2, className)}
+          >
             {children}
           </span>
         );
       case "subtitle1":
         return (
-          <span style={style} className={c(Styles.subtitle1, className)}>
+          <span
+            title={title}
+            style={style}
+            className={c(Styles.subtitle1, className)}
+          >
             {children}
           </span>
         );
       case "h3":
         return (
-          <h3 style={style} className={c(Styles.h3, className)}>
+          <h3 title={title} style={style} className={c(Styles.h3, className)}>
             {children}
           </h3>
         );
+      case "h4":
+        return (
+          <h4 title={title} style={style} className={c(Styles.h4, className)}>
+            {children}
+          </h4>
+        );
       case "h5":
         return (
-          <h5 style={style} className={c(Styles.h5, className)}>
+          <h5 title={title} style={style} className={c(Styles.h5, className)}>
             {children}
           </h5>
         );
       default:
         return (
-          <h1 style={style} className={c(Styles.h1, className)}>
+          <h1 title={title} style={style} className={c(Styles.h1, className)}>
             {children}
           </h1>
         );

@@ -37,9 +37,11 @@ const SideBar = () => {
 
   return (
     <nav className={Styles.container}>
-      <div className={Styles.logoContainer}>
-        <Logo />
-      </div>
+      <Link to="/">
+        <div className={Styles.logoContainer}>
+          <Logo />
+        </div>
+      </Link>
       <ul className={Styles.menus}>
         {menus.map((menu: Menu) => {
           return (
