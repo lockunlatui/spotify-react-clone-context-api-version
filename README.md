@@ -27,7 +27,7 @@ Spotify React Clone is a using ReactJS library to creating a web single page.
 https://nodejs.org/en/
 ```
 
-You should choose to "Recommended For Most Users" version.
+You should choose to "node@14.17.1 For Most Users" version.
 
 ### ReactJS
 

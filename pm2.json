@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "api",
+      "exec_mode": "cluster",
+      "instances": "1",
+      "script": "./api/index.ts",
+      "interpreter": "ts-node",
+      "node_args" : "-r dotenv/config",
+      "env": {
+        "ENV": "dev",
+        "PORT": 3001
+      }
+    }
+  ]
+}
