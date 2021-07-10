@@ -5,7 +5,6 @@ import passport from "passport";
 import session from "express-session";
 import { Strategy } from "passport-spotify";
 import { UsersDAO, PlayListsDAO, PlayerDAO, TracksDAO, AlbumDAO } from "./dao";
-import axios from "axios";
 dotenv.config();
 
 export interface Profile {
@@ -53,7 +52,7 @@ passport.use(
     {
       clientID: `${CLIENT_ID}`,
       clientSecret: `${CLIENT_SECRET}`,
-      callbackURL: `${REDIRECT_URI}`,
+      callbackURL: `${REDIRECT_URL_CLIENT_REACT}${REDIRECT_URI}`,
       passReqToCallback: true,
     },
     function (
