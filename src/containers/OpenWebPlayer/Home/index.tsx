@@ -12,6 +12,7 @@ import Styles from "./home.module.scss";
 import ListOfNewRelease from "./ListOfNewRelease";
 
 const Home = () => {
+
   const greeting = () => {
     const currentTime = new Date();
     const getTimeZone = currentTime.getTimezoneOffset() / -Numbers.Sixty;

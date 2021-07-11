@@ -2,8 +2,7 @@
 
 .container {
   @include flex-column;
-  margin-top: 50px;
-  padding: 30px;
+  padding: 0px 30px 30px 30px;
 
   .helloContainer {
     .title {

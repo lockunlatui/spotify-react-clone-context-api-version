@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import Styles from "./topNav.module.scss";
+import c from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -19,15 +20,25 @@ import { StoreContext } from "@store/store-context";
 /** Actions */
 import { getUser } from "@store/actions/header";
 
-const TopNav = () => {
+let isFetching: boolean = false;
+
+const TopNav = ({ scrollHeight }: any) => {
   const [state, dispatch] = useContext(StoreContext);
   const { user } = state.header;
 
   useEffect(() => {
-    getUser(dispatch);
+    if (!Boolean(isFetching)) {
+      getUser(dispatch);
+      isFetching = true;
+    }
   }, [dispatch]);
   return (
-    <div className={Styles.container}>
+    <div
+      className={c(
+        Styles.container,
+        scrollHeight > 65 ? Styles.containerWhenScroll : ""
+      )}
+    >
       <div className={Styles.topContainer}>
         <div className={Styles.btnContainer}>
           <Button className={Styles.btnLeft}>

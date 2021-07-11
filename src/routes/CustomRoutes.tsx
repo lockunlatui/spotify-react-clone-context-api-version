@@ -14,7 +14,6 @@ const OpenWebPlayer = lazy(() => import("@containers/OpenWebPlayer"));
 const Header = lazy(() => import("@containers/Header"));
 const Footer = lazy(() => import("@containers/Footer"));
 const SideBar = lazy(() => import("@containers/SideBar"));
-const TopNav = lazy(() => import("@containers/TopNav"));
 const NowPlayingBar = lazy(() => import("@containers/NowPlayingBar"));
 
 const CustomRoutes = () => {
@@ -92,7 +91,7 @@ const CustomRoutes = () => {
     <Suspense fallback={<div>Loading...</div>}>
       <div className={Styles.openPlayerContainer}>
         <SideBar />
-        <TopNav />
+       
         <Switch>
           <PrivateComponent
             auth={Boolean(isAuthenticated)}
