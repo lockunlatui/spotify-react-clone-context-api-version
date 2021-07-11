@@ -1,7 +1,7 @@
 @import "global";
 
 .container {
-  @include flex;
+  @include flex-column;
   margin-top: 50px;
   padding: 30px;
 

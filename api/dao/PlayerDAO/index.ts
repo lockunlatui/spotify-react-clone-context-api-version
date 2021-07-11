@@ -30,11 +30,16 @@ class PlayerDAO {
   ) {
     const url = `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`;
     try {
+      const isSpotifyUriPlaylist =
+        spotifyUri.includes("playlist") ||
+        spotifyUri.includes("artist") ||
+        spotifyUri.includes("album");
       const data = await axios.put(
         url,
         {
-          uris: [spotifyUri],
-          position_ms: position
+          [!isSpotifyUriPlaylist ? "uris" : ""]: [spotifyUri],
+          position_ms: position,
+          [isSpotifyUriPlaylist ? "context_uri" : ""]: spotifyUri,
         },
         {
           headers: {
@@ -60,7 +65,7 @@ class PlayerDAO {
       });
       return data;
     } catch (error) {
-      console.log("data", error)
+      console.log("data", error);
       return error;
     }
   }

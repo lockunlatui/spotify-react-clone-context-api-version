@@ -6,14 +6,31 @@
   height: auto;
   padding: 10px;
 
+  @include desktopMax{
+    padding: 15px 10px 15px 10px;
+  }
+
   div {
     @include flex;
     @include paddingShort(0px, 16px);
+
     .left {
       width: 30%;
 
+      @include tableMax{
+        width: 80%;
+      }
+
+      .avatarSong {
+        -webkit-animation: spin 4s linear infinite;
+        -moz-animation: spin 4s linear infinite;
+        animation: spin 4s linear infinite;
+      }
+
       img {
         @include widthHeight(56px, 56px);
+        object-fit: cover;
+        border-radius: 50%;
       }
 
       .track {
@@ -58,12 +75,21 @@
       @include flex-column;
       align-items: center;
 
+      @include tableMax{
+        width: 20%;
+      }
+  
+
       .controls {
         @include flex;
         align-items: center;
         justify-content: center;
         width: 100%;
         color: $gray;
+
+        @include tableMax{
+          justify-content: flex-end;
+        }
 
         svg {
           @include widthHeight(16px, 16px);
@@ -72,10 +98,19 @@
           &:hover {
             color: $white;
           }
-
+          @include tableMax{
+            display: none;
+          }
+        
           &:nth-of-type(3) {
             @include widthHeight(32px, 32px);
             color: $white;
+            @include tableMax{
+              display: flex;
+            }
+            &:hover {
+              color: $green;
+            }
           }
         }
       }
@@ -87,6 +122,10 @@
         margin-top: 10px;
         margin-bottom: 10px;
         color: $gray;
+
+        @include tableMax{
+          display: none;
+        }
 
         .durationTime {
           width: 100px;
@@ -100,6 +139,14 @@
           border-radius: 5px;
           margin: 0px 10px 0px;
         }
+
+        .loading {
+          @include flex;
+          justify-content: center;
+          width: 100%;
+          animation: move 1.5s ease-out infinite;
+          font-size: 1.3rem;
+        }
       }
     }
 
@@ -108,6 +155,11 @@
       color: $gray;
       @include flex;
       justify-content: flex-end;
+
+      @include tableMax{
+        display: none;
+        width: 0%;
+      }
 
       button {
         background-color: inherit;

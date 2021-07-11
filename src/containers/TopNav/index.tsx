@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
+  faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 /** Components */
@@ -38,9 +39,16 @@ const TopNav = () => {
         </div>
         <div className={Styles.profileMenu}>
           <Button>
-            <figure title={user.data.displayName}>
-              <img src={user.data.photo} alt={user.data.displayName} />
-            </figure>
+            {Boolean(user.data.photo) ? (
+              <figure title={user.data.displayName}>
+                <img src={user.data.photo} alt={user.data.displayName} />
+              </figure>
+            ) : (
+              <figure title={user.data.displayName}>
+                <FontAwesomeIcon color={Colors.White} icon={faUserCircle} />
+              </figure>
+            )}
+
             <Typography variant="body2">{user.data.displayName}</Typography>
           </Button>
         </div>

@@ -26,4 +26,12 @@ export interface AppState {
       isFetching: boolean;
     };
   };
+  openWebPlayer: {
+    home: {
+      listOfNewRelease: {
+        isFetching: boolean;
+        data: any;
+      }
+    }
+  }
 }

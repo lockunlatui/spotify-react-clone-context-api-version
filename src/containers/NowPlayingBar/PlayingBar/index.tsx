@@ -27,6 +27,7 @@ import { Colors, LocalStorages, Times, Numbers } from "@enums/index";
 
 /** Styles */
 import Styles from "./playingBar.module.scss";
+import Images from "@utils/Images";
 
 let timeInterval: ReturnType<typeof setInterval>;
 
@@ -46,10 +47,9 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
 const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
   const [state, dispatch] = useContext(StoreContext);
-  const { playerCurrentlyPlaying } = state.nowPlayingBar;
-  const [currentTime, setCurrentTime] = useState("0:00");
+  const { playerCurrentlyPlaying, play } = state.nowPlayingBar;
+  const [currentTime, setCurrentTime] = useState(Times.TimeStart);
   const [percentTime, setPercentTime] = useState(Numbers.Zero);
-
 
   const track = isPlaying
     ? {
@@ -61,22 +61,27 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
       }
     : {
         image:
-          playingMusicData?.data?.items[Numbers.Zero]?.track?.album?.images[
+          playingMusicData?.data?.items?.[Numbers.Zero]?.track?.album?.images[
             Numbers.Zero
           ].url,
-        trackName: playingMusicData?.data?.items[Numbers.Zero]?.track?.name,
+        trackName: playingMusicData?.data?.items?.[Numbers.Zero]?.track?.name,
         artistName:
-          playingMusicData?.data?.items[Numbers.Zero]?.track?.artists[
+          playingMusicData?.data?.items?.[Numbers.Zero]?.track?.artists[
             Numbers.Zero
           ]?.name,
         durationTime:
-          playingMusicData?.data?.items[Numbers.Zero]?.track?.duration_ms,
-        uri: playingMusicData?.data?.items[Numbers.Zero]?.track?.uri,
+          playingMusicData?.data?.items?.[Numbers.Zero]?.track?.duration_ms,
+        uri: playingMusicData?.data?.items?.[Numbers.Zero]?.track?.uri,
         position:
-          playingMusicData?.data?.items[Numbers.Zero]?.track?.track_number,
+          playingMusicData?.data?.items?.[Numbers.Zero]?.track?.track_number,
       };
 
   useEffect(() => {
+    const resetState = () => {
+      setPercentTime(Numbers.Zero);
+      setCurrentTime(getDurationTime(Numbers.Zero));
+      clearInterval(timeInterval);
+    };
     if (Boolean(playerCurrentlyPlaying?.data?.is_playing)) {
       let countTime = playerCurrentlyPlaying?.data?.progress_ms;
       const durationTime = playerCurrentlyPlaying?.data?.item?.duration_ms;
@@ -87,22 +92,18 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
           setCurrentTime(getDurationTime(countTime));
         } else {
           getPlayerCurrentlyPlaying(dispatch);
-          setPercentTime(Numbers.Zero);
-          setCurrentTime(getDurationTime(Numbers.Zero));
-          clearInterval(timeInterval);
+          resetState();
         }
       }, Times.OneMillisecond);
     } else {
-      setPercentTime(Numbers.Zero);
-      setCurrentTime(getDurationTime(Numbers.Zero));
-      clearInterval(timeInterval);
+      resetState();
     }
     return () => {
       clearInterval(timeInterval);
     };
   }, [dispatch, playerCurrentlyPlaying]);
 
-  const getDurationTime = (duration: number = 4581758) => {
+  const getDurationTime = (duration: number): any => {
     const minutes = Math.floor(
       duration / (Times.OneMillisecond * Times.OneMinute)
     );
@@ -115,7 +116,7 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
     } ${seconds}`;
   };
 
-  const play = () => {
+  const onPlay = () => {
     const player: any = window.onSpotifyWebPlaybackSDKReady();
     player.addListener("ready", ({ device_id }: any) => {
       localStorage.setItem(LocalStorages.DeviceId, device_id);
@@ -133,7 +134,7 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
     player.connect();
   };
 
-  const pause = () => {
+  const onPause = () => {
     const player: any = window.onSpotifyWebPlaybackSDKReady();
     player.pause().then(() => {
       const device_id = localStorage.getItem(LocalStorages.DeviceId);
@@ -145,7 +146,11 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
     <div className={Styles.nowPlayingBarContainer}>
       <div>
         <div className={Styles.left}>
-          <img src={track?.image} alt={track?.trackName} />
+          <img
+            className={isPlaying ? Styles.avatarSong : ""}
+            src={Boolean(track?.image) ? track.image : Images["RECORD"]}
+            alt={track?.trackName}
+          />
           <div className={Styles.track}>
             <Typography className={Styles.nameTrack} variant="body2">
               {track?.trackName}
@@ -164,9 +169,17 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
             <FontAwesomeIcon icon={faRandom} />
             <FontAwesomeIcon icon={faStepBackward} />
             {Boolean(playerCurrentlyPlaying?.data?.is_playing) ? (
-              <FontAwesomeIcon onClick={() => pause()} icon={faPauseCircle} />
+              <FontAwesomeIcon
+                spin={playerCurrentlyPlaying?.data?.is_playing}
+                onClick={() => onPause()}
+                icon={faPauseCircle}
+              />
             ) : (
-              <FontAwesomeIcon onClick={() => play()} icon={faPlayCircle} />
+              <FontAwesomeIcon
+                spin={playerCurrentlyPlaying?.data?.is_playing}
+                onClick={() => onPlay()}
+                icon={faPlayCircle}
+              />
             )}
             <FontAwesomeIcon icon={faStepForward} />
             <FontAwesomeIcon icon={faRedo} />
@@ -175,25 +188,33 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
             <Typography className={Styles.durationTime} variant="caption">
               {currentTime}
             </Typography>
-
             <div
               style={{ position: "relative" }}
-              className={Styles.progressBar}
+              className={
+                !Boolean(play.isFetching) ? Styles.progressBar : Styles.loading
+              }
             >
-              <div
-                style={{
-                  width: `${percentTime}%`,
-                  backgroundColor: Colors.Green,
-                  position: "absolute",
-                  height: 6,
-                  left: 0,
-                  padding: 0,
-                  borderRadius: 5,
-                }}
-              ></div>
+              {Boolean(play.isFetching) ? (
+                "♪ ♪ ♪ ♪ ♪ ♪ "
+              ) : (
+                <div
+                  style={{
+                    width: `${percentTime}%`,
+                    backgroundColor: Colors.Green,
+                    position: "absolute",
+                    height: 6,
+                    left: 0,
+                    padding: 0,
+                    borderRadius: 5,
+                  }}
+                ></div>
+              )}
             </div>
+
             <Typography className={Styles.durationTime} variant="caption">
-              {getDurationTime(track?.durationTime)}
+              {track?.durationTime
+                ? getDurationTime(track?.durationTime)
+                : Times.TimeStart}
             </Typography>
           </div>
         </div>

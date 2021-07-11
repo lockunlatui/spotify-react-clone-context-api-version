@@ -4,7 +4,14 @@ import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
 import { Strategy } from "passport-spotify";
-import { UsersDAO, PlayListsDAO, PlayerDAO, TracksDAO, AlbumDAO } from "./dao";
+import {
+  UsersDAO,
+  PlayListsDAO,
+  PlayerDAO,
+  TracksDAO,
+  AlbumDAO,
+  BrowserDAO,
+} from "./dao";
 dotenv.config();
 
 export interface Profile {
@@ -273,12 +280,32 @@ app.get(
 
 /** Album */
 app.get(
-  "v1/albums/:id/tracks",
+  "/api/v1/albums/:id/tracks",
   ensureAuthenticated,
   async function (req: any, res) {
     try {
       const { id } = req.params;
       const data = await AlbumDAO.getAnAlbumsTracks(token, id);
+      res.send({
+        status: 200,
+        data: data.data,
+      });
+    } catch (err) {
+      res.send({
+        data: err,
+      });
+    }
+  }
+);
+
+/** Browser */
+app.get(
+  "/api/v1/browse/new-releases/:country/:limit",
+  ensureAuthenticated,
+  async function (req: any, res) {
+    try {
+      const { country, limit } = req.params;
+      const data = await BrowserDAO.getAListOfNewReleases(token, country, limit);
       res.send({
         status: 200,
         data: data.data,

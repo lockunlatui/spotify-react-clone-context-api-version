@@ -2,7 +2,7 @@
 
 .container {
   grid-area: mainView;
-  @include widthHeight(100%, 100px);
+  @include widthHeight(100%, 80px);
   z-index: 2;
   position: sticky;
   top: 0;
@@ -31,9 +31,8 @@
         color: $white;
         background-color: $black;
         border-radius: 23px;
-        padding: 2px;
+        padding: 10px;
         figure {
-          @include widthHeight(28px, 28px);
           margin-right: 8px;
           img {
             width: 100%;

@@ -8,6 +8,9 @@ import { useEffect } from "react";
 /** Styles */
 import Styles from "./home.module.scss";
 
+/** Children Container */
+import ListOfNewRelease from "./ListOfNewRelease";
+
 const Home = () => {
   const greeting = () => {
     const currentTime = new Date();
@@ -37,6 +40,7 @@ const Home = () => {
           {greeting()}
         </Typography>
       </div>
+      <ListOfNewRelease />
     </div>
   );
 };

@@ -4,11 +4,14 @@ import { createContext } from "react";
 import { AppState } from "@interfaces/App";
 
 /** Enums */
-import { Languages } from '@enums/languages';
-
+import { Languages } from "@enums/languages";
 
 /** Reducers */
-import { headerReducer, nowPlayingBarReducer } from "@store/reducers/index";
+import {
+  headerReducer,
+  nowPlayingBarReducer,
+  openWebPlayerHomeReducer,
+} from "@store/reducers/index";
 
 export const StoreContext: any = createContext(null);
 
@@ -39,6 +42,14 @@ export const initialState: AppState | any = {
       data: {},
     },
   },
+  openWebPlayer: {
+    home: {
+      listOfNewRelease: {
+        isFetching: true,
+        data: {},
+      },
+    },
+  },
 };
 
 export const reducer = (
@@ -47,11 +58,13 @@ export const reducer = (
 ) => {
   const stateHeader = headerReducer(state, action);
   const stateNowPlayingBar = nowPlayingBarReducer(state, action);
+  const stateOpenWebPlayerHome = openWebPlayerHomeReducer(state, action);
   const rootState = () => {
     return {
       ...state,
       ...stateHeader,
       ...stateNowPlayingBar,
+      ...stateOpenWebPlayerHome,
     };
   };
   return rootState();

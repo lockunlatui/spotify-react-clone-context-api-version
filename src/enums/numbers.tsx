@@ -2,6 +2,7 @@ export enum Times {
   OneMillisecond = 1000,
   OneSecond = 60,
   OneMinute = 60,
+  TimeStart = "0:00"
 }
 
 export enum Numbers {

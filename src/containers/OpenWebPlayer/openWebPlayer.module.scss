@@ -4,6 +4,11 @@
   grid-area: mainView;
   background-color: $black;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 88px);
   background-image: url("../../assets/images/bg.jfif");
+  overflow: auto;
+
+  @include desktopMax{
+    height: calc(100vh - 86px);
+  }
 }
