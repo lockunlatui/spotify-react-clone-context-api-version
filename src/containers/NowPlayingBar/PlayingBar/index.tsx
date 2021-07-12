@@ -120,11 +120,7 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
     const player: any = window.onSpotifyWebPlaybackSDKReady();
     player.addListener("ready", ({ device_id }: any) => {
       localStorage.setItem(LocalStorages.DeviceId, device_id);
-      const body = {
-        spotifyUri: track.uri,
-        position: track.position,
-      };
-      putPlay(dispatch, device_id, body);
+      putPlay(dispatch, device_id, track.uri, track.position);
     });
     player.connect().then((success: any) => {
       if (success) {

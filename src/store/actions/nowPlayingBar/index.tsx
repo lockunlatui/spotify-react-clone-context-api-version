@@ -119,15 +119,14 @@ export const putPlayError = () => ({
 export const putPlay = (
   dispatch: (arg0: any) => void,
   deviceId: string,
-  body: PutPlayBody
+  uri: string,
+  position: number,
 ) => {
   dispatch(putPlayFetching());
-  PlayerService.putPlayerPlay(deviceId, body)
+  PlayerService.putPlayerPlay(deviceId, uri, position)
     .then((res: AxiosResponse<any>) => {
       dispatch(putPlayFetched());
-      if (res?.data?.status === 204) {
-        getPlayerCurrentlyPlaying(dispatch);
-      }
+      getPlayerCurrentlyPlaying(dispatch);
     })
     .catch((_) => {
       dispatch(putPlayError());

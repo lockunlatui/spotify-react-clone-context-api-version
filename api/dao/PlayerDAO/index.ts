@@ -34,23 +34,29 @@ class PlayerDAO {
         spotifyUri.includes("playlist") ||
         spotifyUri.includes("artist") ||
         spotifyUri.includes("album");
+
+      const payloadWithContextUri = {
+        position_ms: position,
+        context_uri: spotifyUri,
+      };
+
+      const payloadWithUris = {
+        position_ms: position,
+        uris: [spotifyUri],
+      };
       const data = await axios.put(
         url,
-        {
-          [!isSpotifyUriPlaylist ? "uris" : ""]: [spotifyUri],
-          position_ms: position,
-          [isSpotifyUriPlaylist ? "context_uri" : ""]: spotifyUri,
-        },
+        isSpotifyUriPlaylist ? payloadWithContextUri : payloadWithUris,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      return data;
+      return Promise.resolve(data);
     } catch (error) {
       return {
-        status: 400,
+        status: error,
       };
     }
   }

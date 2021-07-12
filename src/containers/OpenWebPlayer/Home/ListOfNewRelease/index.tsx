@@ -34,11 +34,7 @@ const ListOfNewRelease = () => {
     const player: any = window.onSpotifyWebPlaybackSDKReady();
     player.addListener("ready", ({ device_id }: any) => {
       localStorage.setItem(LocalStorages.DeviceId, device_id);
-      const body = {
-        spotifyUri:track.uri,
-        position: 0,
-      };
-      putPlay(dispatch, device_id, body);
+      putPlay(dispatch, device_id, track.uri, 0);
     });
     player.connect().then((success: any) => {
       if (success) {

@@ -1,9 +1,17 @@
 import axios from "@services/interceptor";
 
 /** Interfaces */
-import { PutPlayBody } from '@interfaces/NowPlayingBar';
+import { Apis } from "@enums/routes";
 
 const API_PLAYER = "/me/player";
+
+const user: any = JSON.parse(localStorage.getItem("user") || "");
+
+const configSpotifyApi = {
+  headers: {
+    Authorization: `Bearer ${user?.token}`,
+  },
+};
 
 class PlayerService {
   /** GET */
@@ -15,11 +23,36 @@ class PlayerService {
   };
 
   /** PUT */
-  static putPlayerPlay = (device_id: string, body: PutPlayBody | any) => {
-    return axios.put(`${API_PLAYER}/play/${device_id}`, body);
+  static putPlayerPlay = (
+    device_id: string,
+    spotifyUri: string,
+    position: number
+  ) => {
+    const isSpotifyUriPlaylist =
+      spotifyUri.includes("playlist") ||
+      spotifyUri.includes("artist") ||
+      spotifyUri.includes("album");
+    const payloadWithContextUri = {
+      position_ms: position,
+      context_uri: spotifyUri,
+    };
+
+    const payloadWithUris = {
+      position_ms: position,
+      uris: [spotifyUri],
+    };
+
+    return axios.put(
+      `${Apis.SpotifyApi}/player/play?device_id=${device_id}`,
+      isSpotifyUriPlaylist ? payloadWithContextUri : payloadWithUris,
+      configSpotifyApi
+    );
   };
   static putPlayerPause = (device_id: string) => {
-    return axios.put(`${API_PLAYER}/pause/${device_id}`);
+    return axios.put(
+      `${Apis.SpotifyApi}/player/pause?device_id=${device_id}`, {},
+      configSpotifyApi
+    );
   };
 }
 

@@ -1,4 +1,5 @@
 export enum Apis {
+  SpotifyApi = 'https://api.spotify.com/v1/me',
   ApiV1 = "/api/v1",
 }
 
