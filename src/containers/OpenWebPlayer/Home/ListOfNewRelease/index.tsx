@@ -17,6 +17,7 @@ import { getAListOfNewReleases } from "@store/actions/openWebPlayer/home";
 import { putPlay } from "@store/actions/nowPlayingBar";
 
 import Styles from "./listOfNewRelease.module.scss";
+import axios from "@services/interceptor";
 
 let isFetching: boolean = false;
 
@@ -31,20 +32,21 @@ const ListOfNewRelease = () => {
   }, [dispatch]);
 
   const onPlay = (track: any) => {
-    const player: any = window.onSpotifyWebPlaybackSDKReady();
-    player.addListener("ready", ({ device_id }: any) => {
-      localStorage.setItem(LocalStorages.DeviceId, device_id);
-      const user: any = localStorage.getItem("user");
+    const user: any = localStorage.getItem("user");
 
-      const token = Boolean(user) ? JSON.parse(user) : "";
-      putPlay(dispatch, device_id, track.uri, 0, token.token);
-    });
-    player.connect().then((success: any) => {
-      if (success) {
-        console.log("The Web Playback SDK successfully connected to Spotify!");
+    const token = Boolean(user) ? JSON.parse(user) : "";
+    axios.get(`https://api.spotify.com/v1/me/player/devices`, {
+      headers: {
+        Authorization: `Bearer ${token.token}`
       }
-    });
-    player.connect();
+    })
+    .then((response: any) => {
+      console.log("response", response)
+      if(response.data?.devices?.length !== 0) {
+         putPlay(dispatch, response?.data?.devices[0].id, track.uri, 0, token.token);
+      }
+     
+    })
   };
 
   return (

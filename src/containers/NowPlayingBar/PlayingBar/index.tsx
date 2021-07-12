@@ -43,6 +43,11 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     },
     volume: Numbers.ZeroPointFive,
   });
+  player.connect().then((success: any) => {
+    if (success) {
+      console.log("The Web Playback SDK successfully connected to Spotify!");
+    }
+  });
   return player;
 };
 
@@ -134,12 +139,7 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
         alert("Play nhạc không được. LIÊN HỆ LỘC ĐỖ ĐỂ BIẾT THÊM CHI TIẾT");
       }
     });
-    player.connect().then((success: any) => {
-      if (success) {
-        console.log("The Web Playback SDK successfully connected to Spotify!");
-      }
-    });
-    player.connect();
+
   };
 
   const onPause = () => {

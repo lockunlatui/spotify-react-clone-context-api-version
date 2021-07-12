@@ -140,7 +140,7 @@ app.get("/api/v1/me", ensureAuthenticated, async function (req, res) {
   try {
     console.log("===========================TOKEN===========================");
     console.log(token);
-
+    console.log(userProfile)
     console.log("===========================TOKEN===========================");
     const data = {
       country: userProfile?.country,
