@@ -57,7 +57,7 @@ const Nav = ({ menus, isOpenOfMobile }: INavProps) => {
               {Boolean(user.data.photo) ? (
                 <img
                   className={Styles.profileImg}
-                  src={user.data.photo}
+                  src="Avatar"
                   alt="Avatar"
                 />
               ) : (

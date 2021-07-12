@@ -52,7 +52,7 @@ const TopNav = ({ scrollHeight }: any) => {
           <Button>
             {Boolean(user.data.photo) ? (
               <figure title={user.data.displayName}>
-                <img src={user.data.photo} alt={user.data.displayName} />
+                <img src={user.data.photo} alt="Avatar" />
               </figure>
             ) : (
               <figure title={user.data.displayName}>

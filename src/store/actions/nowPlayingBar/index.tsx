@@ -149,12 +149,12 @@ export const putPlay = (
   dispatch(putPlayFetching());
   PlayerService.putPlayerPlay(deviceId, uri, position)
     .then((res: AxiosResponse<any>) => {
-      console.log("res", res);
       if (res?.status === 204) {
         setTimeout(() => {
+          getPlayer(dispatch);
           getPlayerCurrentlyPlaying(dispatch);
           dispatch(putPlayFetched());
-        }, 1000);
+        }, 3000);
       }
     })
     .catch((_) => {
@@ -183,8 +183,11 @@ export const putPause = (
   dispatch(putPauseFetching());
   PlayerService.putPlayerPause(deviceId)
     .then((res: AxiosResponse<any>) => {
-      dispatch(putPauseFetched());
-      getPlayerCurrentlyPlaying(dispatch);
+      setTimeout(() => {
+        dispatch(putPauseFetched());
+        getPlayer(dispatch);
+        getPlayerCurrentlyPlaying(dispatch);
+      }, 3000);
     })
     .catch((_) => {
       dispatch(putPauseError());

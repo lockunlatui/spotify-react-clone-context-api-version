@@ -5,11 +5,13 @@ import { Apis } from "@enums/routes";
 
 const API_PLAYER = "/me/player";
 
-const user: any = localStorage.getItem("user") || [];
+const user: any = localStorage.getItem("user");
+
+console.log("user", user)
 
 const configSpotifyApi = {
   headers: {
-    Authorization: `Bearer ${JSON.parse(user)?.token}`,
+    Authorization: `Bearer ${Boolean(user) ? JSON.parse(user)?.token : null}`,
   },
 };
 
@@ -55,7 +57,8 @@ class PlayerService {
   };
   static putPlayerPause = (device_id: string) => {
     return axios.put(
-      `${Apis.SpotifyApi}/player/pause?device_id=${device_id}`, {},
+      `${Apis.SpotifyApi}/player/pause?device_id=${device_id}`,
+      {},
       configSpotifyApi
     );
   };
