@@ -1,41 +1,25 @@
-import axios from "axios";
+import {axios} from "../interceptor";
 
 class PlayerDAO {
-  static async getPlayer(token: string) {
+  static async getPlayer() {
     const url = `https://api.spotify.com/v1/me/player`;
-    const data = axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        market: "VN",
-      },
-    });
+    const data = axios.get(url);
     return data;
   }
 
-
-  static async getPlayerCurrentlyPlaying(token: string) {
+  static async getPlayerCurrentlyPlaying() {
     const url = `https://api.spotify.com/v1/me/player/currently-playing`;
-    const data = axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        market: "VN",
-      },
-    });
+    const data = axios.get(url);
     return data;
   }
 
-  static async getPlayerRecentlyPlayed(token: string, limit: number) {
+  static async getPlayerRecentlyPlayed(limit: number) {
     const url = `https://api.spotify.com/v1/me/player/recently-played?limit=${limit}`;
-    const data = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const data = await axios.get(url);
     return data;
   }
 
   static async putStartAndResume(
-    token: string,
     deviceId: string,
     spotifyUri: string,
     position: number
@@ -58,12 +42,7 @@ class PlayerDAO {
       };
       const data = await axios.put(
         url,
-        isSpotifyUriPlaylist ? payloadWithContextUri : payloadWithUris,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        isSpotifyUriPlaylist ? payloadWithContextUri : payloadWithUris
       );
       return Promise.resolve(data);
     } catch (error) {
@@ -73,14 +52,10 @@ class PlayerDAO {
     }
   }
 
-  static async putPause(token: string, deviceId: string) {
+  static async putPause(deviceId: string) {
     const url = `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`;
     try {
-      const data = await axios.put(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const data = await axios.put(url);
       return data;
     } catch (error) {
       console.log("data", error);

@@ -19,6 +19,10 @@ class PlayerService {
     return axios.get(`${API_PLAYER}/currently-playing`);
   };
 
+  static getPlayerDevices = () => {
+    return axios.get(`${API_PLAYER}/devices`);
+  };
+
   /** PUT */
   static putPlayerPlay = (
     device_id: string,
