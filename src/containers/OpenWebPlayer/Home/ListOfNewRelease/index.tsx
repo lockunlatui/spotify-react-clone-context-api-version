@@ -34,7 +34,10 @@ const ListOfNewRelease = () => {
     const player: any = window.onSpotifyWebPlaybackSDKReady();
     player.addListener("ready", ({ device_id }: any) => {
       localStorage.setItem(LocalStorages.DeviceId, device_id);
-      putPlay(dispatch, device_id, track.uri, 0);
+      const user: any = localStorage.getItem("user");
+
+      const token = Boolean(user) ? JSON.parse(user) : "";
+      putPlay(dispatch, device_id, track.uri, 0, token.token);
     });
     player.connect().then((success: any) => {
       if (success) {
@@ -42,7 +45,7 @@ const ListOfNewRelease = () => {
       }
     });
     player.connect();
-  }
+  };
 
   return (
     <div className={Styles.container}>

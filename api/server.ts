@@ -140,17 +140,17 @@ app.get("/api/v1/me", ensureAuthenticated, async function (req, res) {
   try {
     console.log("===========================TOKEN===========================");
     console.log(token);
+
     console.log("===========================TOKEN===========================");
-    const user = await UsersDAO.getUser(userProfile.id);
     const data = {
-      country: user?.country,
-      displayName: user?.displayName,
-      email: user?.emails[0]?.value,
-      followers: user?.followers,
-      id: user.id,
-      photo: user?.photos[0]?.value,
-      product: user?.product,
-      profileUrl: user?.profileUrl,
+      country: userProfile?.country,
+      displayName: userProfile?.displayName,
+      email: userProfile?.emails[0]?.value,
+      followers: userProfile?.followers,
+      id: userProfile.id,
+      photo: userProfile?.photos[0]?.value,
+      product: userProfile?.product,
+      profileUrl: userProfile?.profileUrl,
       token: token,
     };
     res.send(data).status(200);

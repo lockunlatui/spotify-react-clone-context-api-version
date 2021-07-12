@@ -125,7 +125,14 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
     const player: any = window.onSpotifyWebPlaybackSDKReady();
     player.addListener("ready", ({ device_id }: any) => {
       localStorage.setItem(LocalStorages.DeviceId, device_id);
-      putPlay(dispatch, device_id, track.uri, track.position);
+      const user: any = localStorage.getItem("user");
+
+      const token = Boolean(user) ? JSON.parse(user) : "";
+      if (Boolean(track.uri)) {
+        putPlay(dispatch, device_id, track.uri, track.position, token.token);
+      } else {
+        alert("Play nhạc không được. LIÊN HỆ LỘC ĐỖ ĐỂ BIẾT THÊM CHI TIẾT");
+      }
     });
     player.connect().then((success: any) => {
       if (success) {
@@ -138,8 +145,11 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
   const onPause = () => {
     const player: any = window.onSpotifyWebPlaybackSDKReady();
     player.pause().then(() => {
+      const user: any = localStorage.getItem("user");
+
+      const token = Boolean(user) ? JSON.parse(user) : "";
       const device_id = localStorage.getItem(LocalStorages.DeviceId);
-      putPause(dispatch, device_id);
+      putPause(dispatch, device_id, token.token);
     });
   };
 

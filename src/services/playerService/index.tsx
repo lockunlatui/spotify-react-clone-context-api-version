@@ -5,16 +5,6 @@ import { Apis } from "@enums/routes";
 
 const API_PLAYER = "/me/player";
 
-const user: any = localStorage.getItem("user");
-
-console.log("user", user)
-
-const configSpotifyApi = {
-  headers: {
-    Authorization: `Bearer ${Boolean(user) ? JSON.parse(user)?.token : null}`,
-  },
-};
-
 class PlayerService {
   /** GET */
   static getPlayer = () => {
@@ -33,7 +23,8 @@ class PlayerService {
   static putPlayerPlay = (
     device_id: string,
     spotifyUri: string,
-    position: number
+    position: number,
+    token: string
   ) => {
     const isSpotifyUriPlaylist =
       spotifyUri.includes("playlist") ||
@@ -52,14 +43,22 @@ class PlayerService {
     return axios.put(
       `${Apis.SpotifyApi}/player/play?device_id=${device_id}`,
       isSpotifyUriPlaylist ? payloadWithContextUri : payloadWithUris,
-      configSpotifyApi
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
   };
-  static putPlayerPause = (device_id: string) => {
+  static putPlayerPause = (device_id: string, token: string) => {
     return axios.put(
       `${Apis.SpotifyApi}/player/pause?device_id=${device_id}`,
       {},
-      configSpotifyApi
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
   };
 }
