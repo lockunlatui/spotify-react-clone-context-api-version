@@ -1,6 +1,18 @@
 import axios from "axios";
 
 class PlayerDAO {
+  static async getPlayer(token: string) {
+    const url = `https://api.spotify.com/v1/me/player`;
+    const data = axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        market: "VN",
+      },
+    });
+    return data;
+  }
+
+
   static async getPlayerCurrentlyPlaying(token: string) {
     const url = `https://api.spotify.com/v1/me/player/currently-playing`;
     const data = axios.get(url, {

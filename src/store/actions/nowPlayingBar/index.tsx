@@ -7,14 +7,38 @@ import {
   GET_TRACK_BY_ID,
   PUT_PLAY,
   PUT_PAUSE,
+  GET_PLAYER,
 } from "@store/actionTypes/nowPlayingBar";
 
 /** Services */
 import PlayerService from "@services/playerService";
 import TracksService from "@services/tracksService";
 
-/** Interfaces */
-import { PutPlayBody } from "@interfaces/NowPlayingBar";
+/** =======================GET_PLAYER=========================== */
+
+export const getPlayerFetching = () => ({
+  type: GET_PLAYER.FETCHING,
+});
+
+export const getPlayerFetched = (payload: any) => ({
+  type: GET_PLAYER.FETCHED,
+  payload,
+});
+
+export const getPlayerError = () => ({
+  type: GET_PLAYER.ERROR,
+});
+
+export const getPlayer = (dispatch: (arg0: any) => void) => {
+  dispatch(getPlayerFetching());
+  PlayerService.getPlayer()
+    .then((res: AxiosResponse<any>) => {
+      dispatch(getPlayerFetched(res.data.data));
+    })
+    .catch((_) => {
+      dispatch(getPlayerError());
+    });
+};
 
 /** =======================GET_PLAYER_CURRENTLY_PLAYED=========================== */
 
@@ -120,13 +144,18 @@ export const putPlay = (
   dispatch: (arg0: any) => void,
   deviceId: string,
   uri: string,
-  position: number,
+  position: number
 ) => {
   dispatch(putPlayFetching());
   PlayerService.putPlayerPlay(deviceId, uri, position)
     .then((res: AxiosResponse<any>) => {
-      dispatch(putPlayFetched());
-      getPlayerCurrentlyPlaying(dispatch);
+      console.log("res", res);
+      if (res?.status === 204) {
+        setTimeout(() => {
+          getPlayerCurrentlyPlaying(dispatch);
+          dispatch(putPlayFetched());
+        }, 1000);
+      }
     })
     .catch((_) => {
       dispatch(putPlayError());

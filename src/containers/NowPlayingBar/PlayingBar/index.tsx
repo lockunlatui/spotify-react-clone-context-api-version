@@ -20,6 +20,7 @@ import {
   getPlayerCurrentlyPlaying,
   putPlay,
   putPause,
+  getPlayer,
 } from "@store/actions/nowPlayingBar";
 
 /** Enums */
@@ -75,6 +76,10 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
         position:
           playingMusicData?.data?.items?.[Numbers.Zero]?.track?.track_number,
       };
+
+  useEffect(() => {
+    getPlayer(dispatch);
+  }, [dispatch]);
 
   useEffect(() => {
     const resetState = () => {

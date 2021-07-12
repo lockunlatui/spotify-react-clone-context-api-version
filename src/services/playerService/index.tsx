@@ -5,19 +5,24 @@ import { Apis } from "@enums/routes";
 
 const API_PLAYER = "/me/player";
 
-const user: any = JSON.parse(localStorage.getItem("user") || "");
+const user: any = localStorage.getItem("user") || [];
 
 const configSpotifyApi = {
   headers: {
-    Authorization: `Bearer ${user?.token}`,
+    Authorization: `Bearer ${JSON.parse(user)?.token}`,
   },
 };
 
 class PlayerService {
   /** GET */
+  static getPlayer = () => {
+    return axios.get(`${API_PLAYER}`);
+  };
+
   static getPlayerCurrentlyPlayed = (limit: number) => {
     return axios.get(`${API_PLAYER}/recently-played?limit=${limit}`);
   };
+
   static getPlayerCurrentlyPlaying = () => {
     return axios.get(`${API_PLAYER}/currently-playing`);
   };

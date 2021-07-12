@@ -178,6 +178,20 @@ app.get("/api/v1/me/playlists", ensureAuthenticated, async function (req, res) {
 });
 
 /** Player */
+app.get("/api/v1/me/player", ensureAuthenticated, async function (req, res) {
+  try {
+    const data = await PlayerDAO.getPlayer(token);
+    res.send({
+      status: 200,
+      data: data.data,
+    });
+  } catch (err) {
+    res.send({
+      data: err,
+    });
+  }
+});
+
 app.get(
   "/api/v1/me/player/currently-playing",
   ensureAuthenticated,
@@ -305,7 +319,11 @@ app.get(
   async function (req: any, res) {
     try {
       const { country, limit } = req.params;
-      const data = await BrowserDAO.getAListOfNewReleases(token, country, limit);
+      const data = await BrowserDAO.getAListOfNewReleases(
+        token,
+        country,
+        limit
+      );
       res.send({
         status: 200,
         data: data.data,
