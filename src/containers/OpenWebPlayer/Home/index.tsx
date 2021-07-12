@@ -3,6 +3,7 @@ import { Typography } from "@components/index";
 
 /** Enums */
 import { Numbers } from "@enums/numbers";
+import axios from "@services/interceptor";
 import { useEffect } from "react";
 
 /** Styles */
@@ -13,6 +14,21 @@ import ListOfNewRelease from "./ListOfNewRelease";
 
 const Home = () => {
 
+  useEffect(() => {
+    const user: any = localStorage.getItem("user");
+
+    const token = Boolean(user) ? JSON.parse(user) : "";
+    axios
+      .get(`https://api.spotify.com/v1/me/tracks?limit=50&offset=0&market=VN`, {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      })
+      .then((response: any) => {
+        console.log("response", response);
+       
+      });
+  },[])
   const greeting = () => {
     const currentTime = new Date();
     const getTimeZone = currentTime.getTimezoneOffset() / -Numbers.Sixty;

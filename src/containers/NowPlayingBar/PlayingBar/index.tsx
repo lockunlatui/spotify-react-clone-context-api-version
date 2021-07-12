@@ -29,39 +29,21 @@ import { Colors, LocalStorages, Times, Numbers } from "@enums/index";
 /** Styles */
 import Styles from "./playingBar.module.scss";
 import Images from "@utils/Images";
+import axios from "@services/interceptor";
 
 let timeInterval: ReturnType<typeof setInterval>;
 
-window.onSpotifyWebPlaybackSDKReady = () => {
-  const user: string | any = localStorage.getItem(LocalStorages.User);
-  const token = JSON.parse(user).token;
-
-  const player = new window.Spotify.Player({
-    name: "Loc Do Player",
-    getOAuthToken: (callback: any) => {
-      callback(token);
-    },
-    volume: Numbers.ZeroPointFive,
-  });
-  player.connect().then((success: any) => {
-    if (success) {
-      console.log("The Web Playback SDK successfully connected to Spotify!");
-    }
-  });
-  return player;
-};
-
 const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
   const [state, dispatch] = useContext(StoreContext);
-  const { playerCurrentlyPlaying, play } = state.nowPlayingBar;
+  const { playerCurrentlyPlaying } = state.nowPlayingBar;
   const [currentTime, setCurrentTime] = useState(Times.TimeStart);
   const [percentTime, setPercentTime] = useState(Numbers.Zero);
 
-  const track = isPlaying
+  const track = Boolean(playerCurrentlyPlaying?.data?.progress_ms)
     ? {
-        image: playingMusicData?.data?.album?.images[Numbers.Zero].url,
+        image: playingMusicData?.data?.album?.images?.[Numbers.Zero].url,
         trackName: playingMusicData?.data?.name,
-        artistName: playingMusicData?.data?.artists[Numbers.Zero]?.name,
+        artistName: playingMusicData?.data?.artists?.[Numbers.Zero]?.name,
         durationTime: playingMusicData?.data?.duration_ms,
         uri: playingMusicData?.data?.album?.uri,
       }
@@ -84,12 +66,14 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
 
   useEffect(() => {
     getPlayer(dispatch);
-  }, [dispatch]);
+  }, [dispatch, track.uri]);
 
   useEffect(() => {
     const resetState = () => {
-      setPercentTime(Numbers.Zero);
-      setCurrentTime(getDurationTime(Numbers.Zero));
+      if (!Boolean(playerCurrentlyPlaying?.data?.progress_ms)) {
+        setPercentTime(Numbers.Zero);
+        setCurrentTime(getDurationTime(Numbers.Zero));
+      }
       clearInterval(timeInterval);
     };
     if (Boolean(playerCurrentlyPlaying?.data?.is_playing)) {
@@ -101,6 +85,24 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
           setPercentTime((countTime / durationTime) * Numbers.OneHundred);
           setCurrentTime(getDurationTime(countTime));
         } else {
+          const player: any = window.onSpotifyWebPlaybackSDKReady();
+
+          player.getCurrentState().then((state: any) => {
+            if (!state) {
+              console.error(
+                "User is not playing music through the Web Playback SDK"
+              );
+              return;
+            }
+
+            let {
+              current_track,
+              next_tracks: [next_track],
+            } = state.track_window;
+
+            console.log("Currently Playing", current_track);
+            console.log("Playing Next", next_track);
+          });
           getPlayerCurrentlyPlaying(dispatch);
           resetState();
         }
@@ -127,30 +129,79 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
   };
 
   const onPlay = () => {
-    const player: any = window.onSpotifyWebPlaybackSDKReady();
-    player.addListener("ready", ({ device_id }: any) => {
-      localStorage.setItem(LocalStorages.DeviceId, device_id);
-      const user: any = localStorage.getItem("user");
+    const user: any = localStorage.getItem("user");
 
-      const token = Boolean(user) ? JSON.parse(user) : "";
-      if (Boolean(track.uri)) {
-        putPlay(dispatch, device_id, track.uri, track.position, token.token);
-      } else {
-        alert("Play nhạc không được. LIÊN HỆ LỘC ĐỖ ĐỂ BIẾT THÊM CHI TIẾT");
-      }
-    });
-
+    const token = Boolean(user) ? JSON.parse(user) : "";
+    axios
+      .get(`https://api.spotify.com/v1/me/player/devices`, {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      })
+      .then((response: any) => {
+        console.log("response", response);
+        if (response.data?.devices?.length !== 0) {
+          putPlay(
+            dispatch,
+            response?.data?.devices[0].id,
+            track.uri,
+            playerCurrentlyPlaying?.data?.progress_ms,
+            token.token
+          );
+        }
+      });
   };
 
   const onPause = () => {
-    const player: any = window.onSpotifyWebPlaybackSDKReady();
-    player.pause().then(() => {
-      const user: any = localStorage.getItem("user");
+    const user: any = localStorage.getItem("user");
+    const token = Boolean(user) ? JSON.parse(user) : "";
 
-      const token = Boolean(user) ? JSON.parse(user) : "";
-      const device_id = localStorage.getItem(LocalStorages.DeviceId);
-      putPause(dispatch, device_id, token.token);
-    });
+    axios
+      .get(`https://api.spotify.com/v1/me/player/devices`, {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      })
+      .then((response: any) => {
+        console.log("response", response);
+        if (response.data?.devices?.length !== 0) {
+          console.log("=====", playerCurrentlyPlaying?.data?.progress_ms);
+          setCurrentTime(
+            getDurationTime(playerCurrentlyPlaying?.data?.progress_ms)
+          );
+          putPause(dispatch, response?.data?.devices[0].id, token.token);
+        }
+      });
+  };
+
+  const onNext = () => {
+    const user: any = localStorage.getItem("user");
+    const token = Boolean(user) ? JSON.parse(user) : "";
+
+    axios
+      .get(`https://api.spotify.com/v1/me/player/devices`, {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      })
+      .then((response: any) => {
+        console.log("response", response);
+        if (response.data?.devices?.length !== 0) {
+          axios
+            .post(
+              `https://api.spotify.com/v1/me/player/next?device_id=${response.data?.devices[0].id}`, {},
+              {
+                headers: {
+                  Authorization: `Bearer ${token.token}`,
+                },
+              }
+            )
+            .then((response: any) => {
+              getPlayerCurrentlyPlaying(dispatch)
+             
+            });
+        }
+      });
   };
 
   return (
@@ -192,7 +243,7 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
                 icon={faPlayCircle}
               />
             )}
-            <FontAwesomeIcon icon={faStepForward} />
+            <FontAwesomeIcon onClick={() => onNext()} icon={faStepForward} />
             <FontAwesomeIcon icon={faRedo} />
           </div>
           <div className={Styles.playBar}>
@@ -202,10 +253,12 @@ const PlayingBar = ({ playingMusicData, isPlaying }: any) => {
             <div
               style={{ position: "relative" }}
               className={
-                !Boolean(play.isFetching) ? Styles.progressBar : Styles.loading
+                playerCurrentlyPlaying?.data?.progress_ms
+                  ? Styles.progressBar
+                  : Styles.loading
               }
             >
-              {Boolean(play.isFetching) ? (
+              {!playerCurrentlyPlaying?.data?.progress_ms ? (
                 "♪ ♪ ♪ ♪ ♪ ♪ "
               ) : (
                 <div

@@ -24,7 +24,8 @@ const NowPlayingBar = () => {
   };
 
   const renderPlayList = () => {
-    if (playerCurrentlyPlaying?.data?.is_playing) {
+ 
+    if (playerCurrentlyPlaying?.data?.progress_ms) {
       if (track.isFetching) {
         return renderLoading();
       } else {

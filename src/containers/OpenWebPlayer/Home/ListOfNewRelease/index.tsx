@@ -9,9 +9,6 @@ import { StoreContext } from "@store/store-context";
 /** Utils */
 import { Images } from "@utils/index";
 
-/** Enums */
-import { LocalStorages } from "@enums/index";
-
 /** Actions */
 import { getAListOfNewReleases } from "@store/actions/openWebPlayer/home";
 import { putPlay } from "@store/actions/nowPlayingBar";

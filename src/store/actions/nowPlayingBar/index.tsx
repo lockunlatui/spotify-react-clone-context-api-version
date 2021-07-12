@@ -14,6 +14,8 @@ import {
 import PlayerService from "@services/playerService";
 import TracksService from "@services/tracksService";
 
+let intervalPlay: any; 
+
 /** =======================GET_PLAYER=========================== */
 
 export const getPlayerFetching = () => ({
@@ -33,9 +35,11 @@ export const getPlayer = (dispatch: (arg0: any) => void) => {
   dispatch(getPlayerFetching());
   PlayerService.getPlayer()
     .then((res: AxiosResponse<any>) => {
+      clearInterval(intervalPlay);
       dispatch(getPlayerFetched(res.data.data));
     })
     .catch((_) => {
+      clearInterval(intervalPlay);
       dispatch(getPlayerError());
     });
 };
@@ -150,13 +154,9 @@ export const putPlay = (
   dispatch(putPlayFetching());
   PlayerService.putPlayerPlay(deviceId, uri, position, token)
     .then((res: AxiosResponse<any>) => {
-      if (res?.status === 204) {
-        setTimeout(() => {
-          getPlayer(dispatch);
-          getPlayerCurrentlyPlaying(dispatch);
-          dispatch(putPlayFetched());
-        }, 3000);
-      }
+      intervalPlay = setInterval(() => {
+       getPlayerCurrentlyPlaying(dispatch);
+     }, 500);
     })
     .catch((_) => {
       dispatch(putPlayError());
@@ -185,11 +185,7 @@ export const putPause = (
   dispatch(putPauseFetching());
   PlayerService.putPlayerPause(deviceId, token)
     .then((res: AxiosResponse<any>) => {
-      setTimeout(() => {
-        dispatch(putPauseFetched());
-        getPlayer(dispatch);
-        getPlayerCurrentlyPlaying(dispatch);
-      }, 3000);
+      getPlayerCurrentlyPlaying(dispatch);
     })
     .catch((_) => {
       dispatch(putPauseError());
