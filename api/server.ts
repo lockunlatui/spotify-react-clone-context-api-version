@@ -172,7 +172,6 @@ app.get("/api/v1/health", function (req, res) {
 app.get("/api/v1/me/playlists", ensureAuthenticated, async function (req, res) {
   try {
     const data = await PlayListsDAO.getPlayListsByUser(50);
-    console.log("data", data)
     res.send({
       status: 200,
       data: data.data,
