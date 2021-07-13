@@ -1,13 +1,9 @@
-import axios from "axios";
+import {axios} from "../interceptor";
 
 class AlbumDAO {
-  static async getAnAlbumsTracks(token: string, id: string) {
+  static async getAnAlbumsTracks(id: string) {
     const url = `https://api.spotify.com/v1/albums/${id}/tracks?limit=20`;
-    const data: any = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-    });
+    const data: any = await axios.get(url);
     return data;
   }
 }

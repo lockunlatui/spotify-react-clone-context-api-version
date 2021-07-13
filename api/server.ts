@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
 import { Strategy } from "passport-spotify";
+
+import { getToken } from "./dao/interceptor";
 import {
   UsersDAO,
   PlayListsDAO,
@@ -72,6 +74,7 @@ passport.use(
     ) {
       process.nextTick(async function () {
         userProfile = profile;
+        getToken(accessToken);
         token = accessToken;
         await UsersDAO.addUser(profile);
         return done(null, profile);
@@ -137,20 +140,17 @@ app.get(
 );
 
 app.get("/api/v1/me", ensureAuthenticated, async function (req, res) {
+ 
   try {
-    console.log("===========================TOKEN===========================");
-    console.log(token);
-    console.log("===========================TOKEN===========================");
-    const user = await UsersDAO.getUser(userProfile.id);
     const data = {
-      country: user?.country,
-      displayName: user?.displayName,
-      email: user?.emails[0]?.value,
-      followers: user?.followers,
-      id: user.id,
-      photo: user?.photos[0]?.value,
-      product: user?.product,
-      profileUrl: user?.profileUrl,
+      country: userProfile?.country,
+      displayName: userProfile?.displayName,
+      email: userProfile?.emails[0]?.value,
+      followers: userProfile?.followers,
+      id: userProfile.id,
+      photo: userProfile?.photos[0]?.value,
+      product: userProfile?.product,
+      profileUrl: userProfile?.profileUrl,
       token: token,
     };
     res.send(data).status(200);
@@ -170,20 +170,40 @@ app.get("/api/v1/health", function (req, res) {
 
 /** PlayLists */
 app.get("/api/v1/me/playlists", ensureAuthenticated, async function (req, res) {
-  const data = await PlayListsDAO.getPlayListsByUser(token, 50, 0);
-  res.send({
-    status: 200,
-    data: data.data,
-  });
+  try {
+    const data = await PlayListsDAO.getPlayListsByUser(50);
+    res.send({
+      status: 200,
+      data: data.data,
+    });
+  } catch (err) {
+    res.send({
+      data: err,
+    });
+  }
 });
 
 /** Player */
+app.get("/api/v1/me/player", ensureAuthenticated, async function (req, res) {
+  try {
+    const data = await PlayerDAO.getPlayer();
+    res.send({
+      status: 200,
+      data: data.data,
+    });
+  } catch (err) {
+    res.send({
+      data: err,
+    });
+  }
+});
+
 app.get(
   "/api/v1/me/player/currently-playing",
   ensureAuthenticated,
   async function (req, res) {
     try {
-      const data = await PlayerDAO.getPlayerCurrentlyPlaying(token);
+      const data = await PlayerDAO.getPlayerCurrentlyPlaying();
       res.send({
         status: 200,
         data: data.data,
@@ -202,7 +222,7 @@ app.get(
   async function (req: any, res) {
     try {
       const { limit } = req.query;
-      const data = await PlayerDAO.getPlayerRecentlyPlayed(token, limit);
+      const data = await PlayerDAO.getPlayerRecentlyPlayed(limit);
       res.send({
         status: 200,
         data: data.data,
@@ -222,7 +242,6 @@ app.put(
     const { deviceId } = req.params;
     const { spotifyUri, position } = req.body;
     const data = await PlayerDAO.putStartAndResume(
-      token,
       deviceId,
       spotifyUri,
       position
@@ -245,7 +264,7 @@ app.put(
   async function (req: any, res) {
     try {
       const { deviceId } = req.params;
-      const data = await PlayerDAO.putPause(token, deviceId);
+      const data = await PlayerDAO.putPause(deviceId);
       res.send({
         status: 200,
         data: data,
@@ -265,7 +284,7 @@ app.get(
   async function (req: any, res) {
     try {
       const { id } = req.params;
-      const data = await TracksDAO.getTrackById(token, id);
+      const data = await TracksDAO.getTrackById(id);
       res.send({
         status: 200,
         data: data.data,
@@ -285,7 +304,7 @@ app.get(
   async function (req: any, res) {
     try {
       const { id } = req.params;
-      const data = await AlbumDAO.getAnAlbumsTracks(token, id);
+      const data = await AlbumDAO.getAnAlbumsTracks(id);
       res.send({
         status: 200,
         data: data.data,
@@ -305,7 +324,7 @@ app.get(
   async function (req: any, res) {
     try {
       const { country, limit } = req.params;
-      const data = await BrowserDAO.getAListOfNewReleases(token, country, limit);
+      const data = await BrowserDAO.getAListOfNewReleases(country, limit);
       res.send({
         status: 200,
         data: data.data,

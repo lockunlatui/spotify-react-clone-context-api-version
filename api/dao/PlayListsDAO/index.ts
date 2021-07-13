@@ -1,17 +1,10 @@
-import axios from "axios";
+import {axios} from "../interceptor";
 
 class PlayListsDAO {
-  static async getPlayListsByUser(
-    token: string,
-    limit: number,
-    offset: number
-  ) {
-    const url = `https://api.spotify.com/v1/me/playlists?limit=${limit}&offset=${offset}`;
-    const data: any = axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  static async getPlayListsByUser(limit: number) {
+    const url = `/me/playlists?limit=${limit}`;
+    const data = await axios.get(url);
+    console.log("LOC DO", axios)
     return data;
   }
 }

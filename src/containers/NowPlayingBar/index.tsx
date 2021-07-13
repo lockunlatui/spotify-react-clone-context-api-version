@@ -24,22 +24,17 @@ const NowPlayingBar = () => {
   };
 
   const renderPlayList = () => {
-    if (playerCurrentlyPlaying?.data?.is_playing) {
+    if (playerCurrentlyPlaying?.data?.progress_ms) {
       if (track.isFetching) {
         return renderLoading();
       } else {
-        return <PlayingBar playingMusicData={track} isPlaying={true} />;
+        return <PlayingBar playingMusicData={track} />;
       }
     } else {
       if (playerCurrentlyPlayed.isFetching) {
         return renderLoading();
       } else {
-        return (
-          <PlayingBar
-            playingMusicData={playerCurrentlyPlayed}
-            isPlaying={false}
-          />
-        );
+        return <PlayingBar playingMusicData={playerCurrentlyPlayed} />;
       }
     }
   };
