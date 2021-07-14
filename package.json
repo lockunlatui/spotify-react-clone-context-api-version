@@ -38,7 +38,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "start:api": " nodemon --config nodemon.json api/index.ts",
+    "start:backend": " nodemon --config nodemon.json backend/index.ts",
     "build": "craco build",
     "test": "craco test",
     "commit": "git cz",

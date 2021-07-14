@@ -1,7 +1,7 @@
 {
   "restartable": "rs",
   "ignore": [".git", "node_modules/", "dist/", "coverage/"],
-  "watch": ["src/", "api/"],
+  "watch": ["src/", "backend/"],
   "execMap": {
     "ts": "node --experimental-modules --loader ts-node/esm.mjs --experimental-top-level-await"
   },

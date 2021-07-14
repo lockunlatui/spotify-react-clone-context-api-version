@@ -24,7 +24,7 @@ import {
 } from "@store/actions/nowPlayingBar";
 
 /** Enums */
-import { Colors, LocalStorages, Times, Numbers } from "@enums/index";
+import { Colors, Times, Numbers } from "@enums/index";
 
 /** Styles */
 import Styles from "./playingBar.module.scss";

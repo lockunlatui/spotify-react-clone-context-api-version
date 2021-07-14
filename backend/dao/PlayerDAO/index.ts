@@ -2,19 +2,19 @@ import {axios} from "../interceptor";
 
 class PlayerDAO {
   static async getPlayer() {
-    const url = `https://api.spotify.com/v1/me/player`;
+    const url = `/me/player`;
     const data = axios.get(url);
     return data;
   }
 
   static async getPlayerCurrentlyPlaying() {
-    const url = `https://api.spotify.com/v1/me/player/currently-playing`;
+    const url = `/me/player/currently-playing`;
     const data = axios.get(url);
     return data;
   }
 
   static async getPlayerRecentlyPlayed(limit: number) {
-    const url = `https://api.spotify.com/v1/me/player/recently-played?limit=${limit}`;
+    const url = `/me/player/recently-played?limit=${limit}`;
     const data = await axios.get(url);
     return data;
   }
@@ -24,7 +24,7 @@ class PlayerDAO {
     spotifyUri: string,
     position: number
   ) {
-    const url = `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`;
+    const url = `/me/player/play?device_id=${deviceId}`;
     try {
       const isSpotifyUriPlaylist =
         spotifyUri.includes("playlist") ||
@@ -53,12 +53,21 @@ class PlayerDAO {
   }
 
   static async putPause(deviceId: string) {
-    const url = `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`;
+    const url = `/me/player/pause?device_id=${deviceId}`;
     try {
       const data = await axios.put(url);
       return data;
     } catch (error) {
-      console.log("data", error);
+      return error;
+    }
+  }
+
+  static async getDevices() {
+    const url = `/me/devices`;
+    try {
+      const data = await axios.get(url);
+      return data;
+    } catch (error) {
       return error;
     }
   }

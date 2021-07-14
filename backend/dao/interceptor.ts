@@ -2,23 +2,19 @@ import axios from "axios";
 
 /** Enums */
 
-let tokenInterceptor;
+let tokenInterceptor: any
 const API = "https://api.spotify.com/v1";
 
 export const getToken = (token: string) => {
   tokenInterceptor = token;
 };
 
-console.log("tokenInterceptor", tokenInterceptor)
-
-const headers = {
-  Authorization: `Bearer ${tokenInterceptor}`,
-  market: "VN",
-};
-
 axios.interceptors.request.use(
   (request) => {
-    request.headers = headers;
+    request.headers = {
+      Authorization: `Bearer ${tokenInterceptor}`,
+      market: "VN",
+    };
     return request;
   },
   (error) => {

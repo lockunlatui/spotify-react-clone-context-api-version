@@ -74,7 +74,7 @@ passport.use(
     ) {
       process.nextTick(async function () {
         userProfile = profile;
-        getToken(accessToken);
+      
         token = accessToken;
         await UsersDAO.addUser(profile);
         return done(null, profile);
@@ -97,7 +97,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      maxAge: 10 * 24 * 365 * 60 * 1000,
+      maxAge: 5 * 60 * 1000,
     },
   })
 );
@@ -139,8 +139,8 @@ app.get(
   }
 );
 
-app.get("/api/v1/me", ensureAuthenticated, async function (req, res) {
- 
+app.get("/api/v1/me", ensureAuthenticated, async function (req, res) { 
+  getToken(token);
   try {
     const data = {
       country: userProfile?.country,
@@ -174,7 +174,7 @@ app.get("/api/v1/me/playlists", ensureAuthenticated, async function (req, res) {
     const data = await PlayListsDAO.getPlayListsByUser(50);
     res.send({
       status: 200,
-      data: data.data,
+      data: data?.data,
     });
   } catch (err) {
     res.send({
