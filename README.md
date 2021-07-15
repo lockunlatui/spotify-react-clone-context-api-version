@@ -8,6 +8,7 @@ Spotify React Clone is a using ReactJS library to creating a web single page.
 ## Features
 
 - Login SSO with Spotify credentials.
+- Play music with Spotify API
 
 ### Demo link:
 https://spotify.locdo.tech
@@ -67,7 +68,7 @@ npm install
 
 After we setup and install all package for client side (FRONT-END).
 
-### Setup to Mongodb
+<!-- ### Setup to Mongodb
 
 We continue to register the MONGODB with this link (https://www.mongodb.com/)
 and click to
@@ -186,7 +187,7 @@ Copy "/api/v1/auth/spotify/callback" to .env file and paste to REDIRECT_URI.
 
 <img src="./screenshot/env-3.png">
 
-So we completed all setup about environment.
+So we completed all setup about environment. -->
 
 Now i use command:
 
