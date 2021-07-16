@@ -13,7 +13,7 @@ class PlayerDAO {
     return data;
   }
 
-  static async getPlayerRecentlyPlayed(limit: number) {
+  static async getPlayerRecentlyPlayed(limit: string | any) {
     const url = `/me/player/recently-played?limit=${limit}`;
     const data = await axios.get(url);
     return data;

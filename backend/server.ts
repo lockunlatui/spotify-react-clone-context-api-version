@@ -6,14 +6,15 @@ import session from "express-session";
 import { Strategy } from "passport-spotify";
 
 import { getToken } from "./dao/interceptor";
+
 import {
-  UsersDAO,
-  PlayListsDAO,
-  PlayerDAO,
-  TracksDAO,
-  AlbumDAO,
-  BrowserDAO,
-} from "./dao";
+  albumRoute,
+  playerRoute,
+  browseRoute,
+  playlistsRoute,
+} from "./api/route";
+
+import { UsersDAO, PlayListsDAO, PlayerDAO, TracksDAO } from "./dao";
 dotenv.config();
 
 export interface Profile {
@@ -74,7 +75,7 @@ passport.use(
     ) {
       process.nextTick(async function () {
         userProfile = profile;
-      
+
         token = accessToken;
         await UsersDAO.addUser(profile);
         return done(null, profile);
@@ -139,7 +140,7 @@ app.get(
   }
 );
 
-app.get("/api/v1/me", ensureAuthenticated, async function (req, res) { 
+app.get("/api/v1/me", ensureAuthenticated, async function (req, res) {
   getToken(token);
   try {
     const data = {
@@ -169,113 +170,10 @@ app.get("/api/v1/health", function (req, res) {
 });
 
 /** PlayLists */
-app.get("/api/v1/me/playlists", ensureAuthenticated, async function (req, res) {
-  try {
-    const data = await PlayListsDAO.getPlayListsByUser(50);
-    res.send({
-      status: 200,
-      data: data?.data,
-    });
-  } catch (err) {
-    res.send({
-      data: err,
-    });
-  }
-});
+app.use(playlistsRoute);
 
 /** Player */
-app.get("/api/v1/me/player", ensureAuthenticated, async function (req, res) {
-  try {
-    const data = await PlayerDAO.getPlayer();
-    res.send({
-      status: 200,
-      data: data.data,
-    });
-  } catch (err) {
-    res.send({
-      data: err,
-    });
-  }
-});
-
-app.get(
-  "/api/v1/me/player/currently-playing",
-  ensureAuthenticated,
-  async function (req, res) {
-    try {
-      const data = await PlayerDAO.getPlayerCurrentlyPlaying();
-      res.send({
-        status: 200,
-        data: data.data,
-      });
-    } catch (err) {
-      res.send({
-        data: err,
-      });
-    }
-  }
-);
-
-app.get(
-  "/api/v1/me/player/recently-played",
-  ensureAuthenticated,
-  async function (req: any, res) {
-    try {
-      const { limit } = req.query;
-      const data = await PlayerDAO.getPlayerRecentlyPlayed(limit);
-      res.send({
-        status: 200,
-        data: data.data,
-      });
-    } catch (err) {
-      res.send({
-        data: err,
-      });
-    }
-  }
-);
-
-app.put(
-  "/api/v1/me/player/play/:deviceId",
-  ensureAuthenticated,
-  async function (req: any, res) {
-    const { deviceId } = req.params;
-    const { spotifyUri, position } = req.body;
-    const data = await PlayerDAO.putStartAndResume(
-      deviceId,
-      spotifyUri,
-      position
-    );
-    if (data.status === 204) {
-      res.send({
-        status: 204,
-      });
-    } else {
-      res.send({
-        status: data.status,
-      });
-    }
-  }
-);
-
-app.put(
-  "/api/v1/me/player/pause/:deviceId",
-  ensureAuthenticated,
-  async function (req: any, res) {
-    try {
-      const { deviceId } = req.params;
-      const data = await PlayerDAO.putPause(deviceId);
-      res.send({
-        status: 200,
-        data: data,
-      });
-    } catch (err) {
-      res.send({
-        data: err,
-      });
-    }
-  }
-);
+app.use(playerRoute);
 
 /** Tracks */
 app.get(
@@ -298,44 +196,10 @@ app.get(
 );
 
 /** Album */
-app.get(
-  "/api/v1/albums/:id/tracks",
-  ensureAuthenticated,
-  async function (req: any, res) {
-    try {
-      const { id } = req.params;
-      const data = await AlbumDAO.getAnAlbumsTracks(id);
-      res.send({
-        status: 200,
-        data: data.data,
-      });
-    } catch (err) {
-      res.send({
-        data: err,
-      });
-    }
-  }
-);
+app.use(albumRoute);
 
 /** Browser */
-app.get(
-  "/api/v1/browse/new-releases/:country/:limit",
-  ensureAuthenticated,
-  async function (req: any, res) {
-    try {
-      const { country, limit } = req.params;
-      const data = await BrowserDAO.getAListOfNewReleases(country, limit);
-      res.send({
-        status: 200,
-        data: data.data,
-      });
-    } catch (err) {
-      res.send({
-        data: err,
-      });
-    }
-  }
-);
+app.use(browseRoute);
 
 function ensureAuthenticated(req: any, res: any, next: any) {
   console.log("=> isAuthenticated", req.isAuthenticated());
