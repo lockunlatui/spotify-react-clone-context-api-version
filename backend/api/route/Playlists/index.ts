@@ -1,9 +1,11 @@
 import express from "express";
 
-import { PlaylistsCtrl } from "../../controller";
+import { PlaylistsCtrl, AuthCtrl } from "../../controller";
 
 const router = express.Router();
 
-router.route("/api/v1/me/playlists").get(PlaylistsCtrl.apiGetPlayListsByUser);
+router
+  .route("/api/v1/me/playlists")
+  .get(AuthCtrl.ensureAuthenticated, PlaylistsCtrl.apiGetPlayListsByUser);
 
 export default router;

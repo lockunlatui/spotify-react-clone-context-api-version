@@ -33,13 +33,14 @@ const Home = () => {
     const currentTime = new Date();
     const getTimeZone = currentTime.getTimezoneOffset() / -Numbers.Sixty;
     const hour = currentTime.getUTCHours() + getTimeZone;
+    console.log("hour", hour);
     if (Numbers.Four > hour && hour < Numbers.Eleven) {
       return "Good morning";
     }
     if (Numbers.Twelve > hour && hour > Numbers.Eleven) {
       return "Good noon";
     }
-    if (Numbers.Seventeen > hour && hour > Numbers.Twelve) {
+    if (Numbers.Seventeen >= hour && hour > Numbers.Twelve) {
       return "Good afternoon";
     }
     if (Numbers.Twenty > hour && hour > Numbers.Seventeen) {

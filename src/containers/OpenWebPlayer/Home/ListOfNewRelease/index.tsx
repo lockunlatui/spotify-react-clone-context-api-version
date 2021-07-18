@@ -39,7 +39,7 @@ const ListOfNewRelease = () => {
     })
     .then((response: any) => {
       console.log("response", response)
-      if(response.data?.devices?.length !== 0) {
+      if(response?.data?.devices?.length !== 0) {
          putPlay(dispatch, response?.data?.devices[0].id, track.uri, 0, token.token);
       }
      
