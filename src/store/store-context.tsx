@@ -11,6 +11,7 @@ import {
   headerReducer,
   nowPlayingBarReducer,
   openWebPlayerHomeReducer,
+  sidebarReducer,
 } from "@store/reducers/index";
 
 export const StoreContext: any = createContext(null);
@@ -50,6 +51,12 @@ export const initialState: AppState | any = {
       },
     },
   },
+  sidebar: {
+    playlists: {
+      isFetching: true,
+      data: {},
+    },
+  },
 };
 
 export const reducer = (
@@ -59,12 +66,14 @@ export const reducer = (
   const stateHeader = headerReducer(state, action);
   const stateNowPlayingBar = nowPlayingBarReducer(state, action);
   const stateOpenWebPlayerHome = openWebPlayerHomeReducer(state, action);
+  const stateSidebar = sidebarReducer(state, action);
   const rootState = () => {
     return {
       ...state,
       ...stateHeader,
       ...stateNowPlayingBar,
       ...stateOpenWebPlayerHome,
+      ...stateSidebar,
     };
   };
   return rootState();

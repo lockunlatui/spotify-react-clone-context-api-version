@@ -10,6 +10,6 @@ export default class AlbumController {
   ): Promise<any> {
     const { id } = req.params;
     const data = await AlbumDao.getAnAlbumsTracks(id);
-    console.log("data", data);
+    return data;
   }
 }

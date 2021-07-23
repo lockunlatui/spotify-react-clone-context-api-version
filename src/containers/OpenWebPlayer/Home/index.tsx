@@ -25,15 +25,13 @@ const Home = () => {
         },
       })
       .then((response: any) => {
-        console.log("response", response);
-       
+
       });
   },[])
   const greeting = () => {
     const currentTime = new Date();
     const getTimeZone = currentTime.getTimezoneOffset() / -Numbers.Sixty;
     const hour = currentTime.getUTCHours() + getTimeZone;
-    console.log("hour", hour);
     if (Numbers.Four > hour && hour < Numbers.Eleven) {
       return "Good morning";
     }

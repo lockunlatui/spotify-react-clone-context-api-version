@@ -1,12 +1,10 @@
 import { AxiosResponse } from "axios";
 
 /** Action Types */
-import {
-  GET_PLAYLISTS
-} from "@store/actionTypes/sideBar";
+import { GET_PLAYLISTS } from "@store/actionTypes/sideBar";
 
 /** Services */
-import PlayerService from "@services/playerService";
+import PlaylistsService from "@services/playlistsService";
 
 /** =======================GET_PLAYLISTS=========================== */
 
@@ -25,11 +23,13 @@ export const getPlaylistsError = () => ({
 
 export const getPlaylists = (dispatch: (arg0: any) => void) => {
   dispatch(getPlaylistsFetching());
-  PlayerService.getPlayer()
+  return PlaylistsService.getPlaylists()
     .then((res: AxiosResponse<any>) => {
       dispatch(getPlaylistsFetched(res.data.data));
+      return res.data.data;
     })
-    .catch((_) => {
+    .catch((error) => {
       dispatch(getPlaylistsError());
+      return error;
     });
 };

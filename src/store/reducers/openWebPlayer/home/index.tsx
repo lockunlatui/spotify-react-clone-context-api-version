@@ -12,8 +12,6 @@ const openWebPlayerHomeReducer = (state: AppState, action: any) => {
         ...state,
       };
     case GET_A_LIST_OF_NEW_RELEASES.FETCHED:
-      console.log("state", state);
-      console.log("ACTION PAYLOAD", action.payload);
       return {
         ...state,
         openWebPlayer: {

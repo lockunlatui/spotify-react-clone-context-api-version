@@ -31,7 +31,13 @@ export interface AppState {
       listOfNewRelease: {
         isFetching: boolean;
         data: any;
-      }
-    }
-  }
+      };
+    };
+  };
+  sidebar: {
+    playlists: {
+      isFetching: boolean;
+      data: any;
+    };
+  };
 }

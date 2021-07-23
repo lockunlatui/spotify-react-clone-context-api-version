@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { faArrowCircleDown } from "@fortawesome/free-solid-svg-icons";
 
 /** Components */
@@ -9,31 +9,33 @@ import { Button, Logo, Typography } from "@components/index";
 /** Mocks */
 import { menus } from "@mocks/SideBar";
 
+/** Actions */
+import { StoreContext } from "@store/store-context";
+import { getPlaylists } from "@store/actions/sideBar";
+
 /** Interface */
 import { Menu } from "@interfaces/SideBar";
 
 import Styles from "./sideBar.module.scss";
 
 const SideBar = () => {
+  const [state, dispatch] = useContext(StoreContext);
   const location = useLocation();
   const [playLists, setPlayLists] = useState({
     items: [],
   });
 
   useEffect(() => {
-    const getPlaylists = async () => {
-      const data = await fetch("/api/v1/me/playlists")
-        .then((resp) => {
-          return resp.json();
-        })
-        .then((resp) => resp.data)
-        .catch((error) => {
-          console.log("error", error);
-        });
-      setPlayLists(data);
-    };
-    getPlaylists();
-  }, []);
+    if (Object.keys(state.sidebar.playlists.data).length === 0) {
+      Promise.resolve(getPlaylists(dispatch)).then((value: any) => {
+        console.log("value", value)
+        if(Boolean(value)) {
+          setPlayLists(value);
+        }
+    
+      });
+    }
+  }, [dispatch, state.sidebar.playlists.data]);
 
   return (
     <nav className={Styles.container}>
