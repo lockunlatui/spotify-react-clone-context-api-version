@@ -13,6 +13,12 @@ Spotify React Clone is a using ReactJS library to creating a web single page.
 ### Demo link:
 https://spotify.locdo.tech
 
+Account test:
+```
+spotify.test.locdo@gmail.com
+Locdo123#
+```
+
 ## Screenshot
 
 ## Home when page don't have authenticate
